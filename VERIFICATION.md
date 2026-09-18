@@ -21,15 +21,33 @@
 - Workflow run ID: `35358656643`
 - Result: **PASS**
 
-The C0 baseline establishes project identity, canonical ecosystem inheritance, project-native fail-closed governance rules, authoritative UPRS state ownership, non-authoritative UPOS projection, the FTA/ACR/TRS production contract, tattoo-specific strengthening controls, and supplemental GitHub Actions governance validation.
+## Phase 1A controlled integration
 
-## Authority
+- Authorized base: `66a880df7517058a903e9ea90ce57a4827d0e697`
+- Independently assured candidate: `eeb0eeb178ee669b1480a92586e91f3742a84cc3`
+- PR: `#1 — Phase 1A — Canonical Repository Bootstrap`
+- Merge commit: `5c538ef63b3da5320a3b8de8df9f68636d792525`
+- Merge result: **PASS**
+- Candidate changed paths: **50**
+- Candidate behind base: **0**
+- Candidate deleted paths: **0**
 
-Governance binding does not grant release, deployment, payment activation, public auto-publishing, production activation, or destructive authority.
+Post-merge validation on the merge commit:
+
+- Governance Gate run `35360046594`: **PASS**
+- Foundation CI run `35360046585`: **PASS**
+- Frozen-lockfile install: **PASS**
+- Governance validation: **PASS**
+- Lint: **PASS**
+- Typecheck: **PASS**
+- Tests: **PASS**
+- Build: **PASS**
+
+Phase 1A is therefore closed as **COMPLETE / PASS**.
 
 ## Project-specific strengthening
 
-The repository additionally requires:
+The repository requires:
 
 - synchronized FTA / ACR / TRS outputs from one canonical design;
 - genuinely hand-drawn-looking ACR output;
@@ -38,27 +56,12 @@ The repository additionally requires:
 - strict public/private/restricted asset separation;
 - fail-closed handling of security/privacy conflicts.
 
-## Validation
+## Authority boundary
 
-Run:
-
-```bash
-python scripts/validate_governance.py
-python -m unittest discover -s tests/governance -p "test_*.py"
-```
-
-Expected validator output:
-
-```text
-GOVERNANCE_VERDICT=PASS
-```
-
-A fresh read-back validation against live `main` also passed the project identity, canonical version/hash, non-weakening, state ownership, authority-boundary, and FTA/ACR/TRS invariants.
-
-A PASS validates the repository binding and local strengthening rules only. It does not prove the product is implemented, tattoo outcomes are safe or effective, or the system is ready for production.
+Completion of Phase 1A does not grant release, deployment, payment activation, public auto-publishing, production activation, or destructive authority.
 
 ## Next governed work package
 
-`PHASE-1A — Canonical Repository Bootstrap`
+`PHASE-1B — Definition & Scope Assurance`
 
-Phase 1A is authorized for bounded foundation implementation. Release, deployment, production activation, payment activation, public auto-publishing, and destructive operations remain separately gated.
+Phase 1B is the next gate. Its implementation scope must be defined and independently assured before feature implementation proceeds.
