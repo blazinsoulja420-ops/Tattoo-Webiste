@@ -1,0 +1,43 @@
+{
+  "schema_version": "1.0.0",
+  "artifact_id": "TAT-PROJECT-CHARTER-001",
+  "project_id": "UP-TATTOO-001",
+  "project": {
+    "id": "UP-TATTOO-001",
+    "name": "Tattoo Platform v2",
+    "product_name": "Tattoo Platform v2"
+  },
+  "purpose": {
+    "statement": "AI-assisted tattoo design, cover-up planning, artist-production preparation, licensing, commerce, and marketing platform with human artist authority and fail-closed privacy/security controls.",
+    "governance_role": "Project charter and authoritative governance artifact index.",
+    "grants_runtime_authority": false
+  },
+  "scope": {
+    "included": [
+      "governance","requirements","architecture","security","privacy","testing",
+      "ai_generation","tattoo_production","coverup_evidence","licensing","commerce",
+      "customer_portal","artist_portal","marketing","deployment_design"
+    ],
+    "excluded_without_separate_authority": [
+      "production_activation","deployment","release","payment_activation",
+      "public_auto_publishing","destructive_operations"
+    ]
+  },
+  "authoritative_artifacts": {
+    "governance_binding": "PROJECT_GOVERNANCE.yaml",
+    "project_rules": "PROJECT_RULES.yaml",
+    "stack_binding": "governance/stack/PROJECT_STACK_BINDING.yaml",
+    "project_state": "governance/uprs/PROJECT_STATE.yaml",
+    "uprs_binding": "governance/uprs/UPRS_PROJECT_BINDING.yaml",
+    "upos_projection": "governance/upos/UPOS_PROJECT_PROJECTION.yaml",
+    "validator": "scripts/validate_governance.py",
+    "verification": "VERIFICATION.md"
+  },
+  "core_product_system_count": 24,
+  "production_contract": {
+    "canonical_design_required": true,
+    "required_outputs": ["FTA","ACR","TRS"],
+    "material_geometry_drift": "FAIL_CLOSED",
+    "artist_approval_required_for_execution": true
+  }
+}
