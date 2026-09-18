@@ -2,87 +2,64 @@
 
 ## Status
 
-Selected development backend candidate for Phase 1B-I4-I1.
+**DEVELOPMENT ADAPTER IMPLEMENTED — NO PROJECT PROVISIONED**
 
 Production adoption: **NOT AUTHORIZED**.
 
-## Intended development use
+## Connected account observation
 
-Supabase may be used in the development environment for:
+The connected Supabase account currently exposes **no projects**.
 
-- PostgreSQL-backed persistence;
-- authentication identity source;
-- object storage;
-- signed delivery URLs;
-- development integration testing.
+Therefore Phase 1B-I4-I1 implements and verifies the development adapter layer without creating a Supabase project, applying SQL migrations, uploading objects, or creating users.
 
-## Fit with existing architecture
+## Implemented development mapping
 
-The repository already defines provider-neutral contracts for:
-
-- persistence;
-- storage;
-- audit;
-- retention;
-- principal identity;
-- authorization;
-- signed delivery.
-
-Supabase is therefore integrated through adapters rather than imported into the domain layer.
-
-## Development capability mapping
-
-| Tattoo Platform contract | Supabase development capability |
+| Tattoo Platform contract | Development adapter |
 | --- | --- |
-| Design Registry / revisions | PostgreSQL |
-| Provenance / audit | PostgreSQL |
-| Identity source | Supabase Auth |
-| Private/restricted binary storage | Supabase Storage |
-| Expiring delivery | Storage signed URL |
-| Additional DB access control | PostgreSQL RLS, defense in depth |
+| Design Registry | SupabaseDesignRegistryRepository |
+| DesignRevision | SupabaseDesignRevisionRepository |
+| Canonical snapshot | SupabaseCanonicalSnapshotRepository |
+| Asset metadata | SupabaseAssetMetadataRepository |
+| Provenance | SupabaseProvenanceRepository |
+| Audit | SupabaseAuditEventRepository |
+| Retention | SupabaseRetentionRequestRepository |
+| Object storage | SupabaseObjectStorageAdapter |
+| Identity source mapping | mapSupabaseIdentityToPrincipal |
+| Expiring delivery | createSupabaseSignedDelivery |
 
-## Required safeguards
+## Provider gateway strategy
 
-- Separate development project from any future production project.
-- Synthetic test users and assets only.
+The infrastructure package exposes narrow Supabase-specific data/storage gateway interfaces.
+
+This keeps provider details isolated while allowing later runtime wiring to the official Supabase client after a development project is separately authorized and available.
+
+The current implementation intentionally does not add a live provider SDK dependency because there is no authorized project to connect and no provisioning authority in this work package.
+
+## Safeguards
+
+- Development/test environment only.
+- Synthetic fixtures only.
 - No real body imagery.
-- No production credentials.
-- No public restricted-evidence bucket.
-- Server-only handling of privileged credentials.
+- No real credentials.
+- Server secrets rejected in client runtime.
+- Security classes map to distinct buckets.
+- RESTRICTED_EVIDENCE has the shortest signed-delivery TTL.
+- Provider metadata role claims do not grant roles.
 - Domain authorization remains authoritative.
-- RLS cannot weaken domain policy.
-- Signed delivery requires prior ALLOW decision.
-- Short TTLs for sensitive signed URLs.
-- No signed URL values in persistent logs.
-- Provider failures fail closed.
+- No SQL migration.
+- No production project.
+- No project creation.
+- No deployment.
 
-## Deferred production questions
+## Next provider gate
 
-Production evaluation must separately address:
+A later separately authorized provider-provisioning gate may:
 
-- backup/recovery objectives;
-- regional/data-location requirements;
-- incident response;
-- key rotation;
-- secret management;
-- storage lifecycle controls;
-- signed-URL revocation requirements;
-- cost and capacity;
-- operational observability;
-- vendor lock-in/exit plan;
-- production RLS assurance;
-- legal/privacy requirements for body imagery.
+1. select the Supabase organization;
+2. obtain and confirm any project cost;
+3. create a dedicated development project;
+4. wire the official client to these gateways;
+5. define development schema/migrations;
+6. run live integration tests and security advisors.
 
-## Exit strategy
-
-The provider-neutral domain and infrastructure-adapter boundary must remain sufficient to replace Supabase components without rewriting core tattoo workflow rules.
-
-A future production architecture may:
-
-- keep Supabase;
-- use Supabase for only some capabilities;
-- move object storage elsewhere;
-- move authentication elsewhere;
-- move persistence elsewhere.
-
-No development decision in this profile grants production approval.
+None of those actions are granted by Phase 1B-I4-I1.
