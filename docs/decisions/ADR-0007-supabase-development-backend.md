@@ -2,79 +2,63 @@
 
 ## Status
 
-Proposed for Phase 1B-I4 scope assurance.
+Accepted for development adapter implementation by Phase 1B-I4-I1.
+
+Production adoption remains **NOT AUTHORIZED**.
 
 ## Context
 
-Tattoo Platform v2 now has provider-neutral contracts for jobs, persistence, storage, audit, retention, authentication identity, authorization, resource relationships, service identity, and signed delivery.
+Tattoo Platform v2 has provider-neutral contracts for persistence, storage, audit, retention, identity, authorization, and signed delivery.
 
-The next useful proof is a real development integration that exercises those contracts without granting production authority.
-
-The current deployment baseline already identifies Supabase as a backend candidate.
+Phase 1B-I4-I1 needed a concrete provider target without granting provider provisioning or production authority.
 
 ## Decision
 
-Select Supabase as the concrete **development backend candidate** for Phase 1B-I4-I1.
+Retain Supabase as the development backend candidate and implement the provider-specific adapter layer inside `@tattoo/infrastructure`.
 
-Use a dedicated infrastructure package so provider-specific SDK types do not enter the domain package.
+The implementation uses narrow development gateway interfaces so the repository can verify provider mapping behavior without requiring a live project.
 
-The development adapter layer may target:
+The connected Supabase account currently has no projects. No project was created.
 
-- Supabase PostgreSQL for repository persistence;
-- Supabase Auth as an identity source;
-- Supabase Storage for development object storage;
-- Supabase Storage signed URLs for already-authorized delivery requests.
+## Implemented consequences
 
-Application authorization remains owned by the domain.
+The repository now has:
 
-## Why this development candidate fits
+- development/test-only Supabase configuration;
+- persistence adapters for registry/revisions/canonical snapshots/assets/provenance;
+- audit and retention adapters;
+- security-class-aware storage routing;
+- trusted identity mapping;
+- signed-delivery TTL enforcement;
+- synthetic integration tests.
 
-Supabase provides a full PostgreSQL database, integrated authentication, object storage, and time-limited signed URL capability in one development platform.
+## Security decisions
 
-That allows the project to test the existing contracts with minimal provider sprawl while preserving the adapter boundary.
+- Domain authorization remains authoritative.
+- Provider role metadata is not authorization.
+- Privileged credentials are server-only.
+- RESTRICTED_EVIDENCE maps to a distinct configured bucket.
+- Signed URLs require an already-authorized domain request.
+- Sensitive signed URLs use bounded TTLs.
+- No provider output may silently weaken domain security class.
 
-## Important constraints
+## Dependency decision
 
-- Development selection is not production approval.
-- No real customer data or body imagery.
-- No production credentials.
-- Privileged credentials remain server-only.
-- RLS is defense in depth, not the canonical authorization authority.
-- Storage classification cannot be weakened.
-- Signed URLs are bearer capabilities and require short, explicit TTLs.
-- Signed URL creation occurs only after domain authorization.
-- Provider identity claims do not grant permissions by themselves.
-- No production deployment/provisioning is authorized.
+A live `@supabase/supabase-js` dependency is deferred until a development project is separately authorized/provisioned.
 
-## Alternatives retained
-
-The architecture intentionally preserves the ability to use a different production stack or split services later.
-
-Examples include:
-
-- another PostgreSQL provider;
-- a separate auth provider;
-- Cloudflare R2 or another S3-compatible object store;
-- a different signed-delivery implementation.
-
-No rejected alternative is prohibited by this ADR.
-
-## Consequences
-
-Positive:
-
-- first concrete backend integration becomes testable;
-- one development provider can exercise several established interfaces;
-- provider-specific code remains isolated;
-- production provider decisions remain reversible.
-
-Tradeoffs:
-
-- a development SDK dependency is introduced in the next implementation phase;
-- development tests will gain provider-specific fixtures;
-- provider semantics must be carefully prevented from leaking into domain contracts;
-- signed URL behavior requires security discipline.
+This avoids pretending to have a live backend when none exists and keeps the current phase reproducible with synthetic test gateways.
 
 ## Non-goals
 
-This ADR does not create a Supabase project, provision a database, upload assets, create production users, enable production auth, define production migrations, deploy the application, activate payments, or grant production authority.
+This ADR does not authorize:
+
+- Supabase project creation;
+- project cost acceptance;
+- SQL migrations;
+- real development users;
+- real object uploads;
+- production provider selection;
+- production credentials;
+- deployment;
+- payment activation;
+- destructive production operations.
