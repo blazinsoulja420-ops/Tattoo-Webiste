@@ -9,9 +9,9 @@
     "uprs_binding": "governance/uprs/UPRS_PROJECT_BINDING.yaml"
   },
   "resolved": {
-    "current_stage": "PHASE_1G_GOVERNANCE_BOOTSTRAP",
-    "current_mode": "GOVERNANCE_BINDING",
-    "next_authorized_action": "C0_GOVERNANCE_VALIDATION_AND_CI",
+    "current_stage": "PHASE_1A_COMPLETE",
+    "current_mode": "POST_MERGE_ASSURANCE",
+    "next_authorized_action": "PHASE_1B_DEFINITION_AND_SCOPE_ASSURANCE",
     "release_authority": "NOT_GRANTED",
     "deployment_authority": "NOT_GRANTED",
     "production_authority": "NOT_GRANTED"
