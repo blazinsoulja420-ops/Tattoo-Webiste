@@ -2,19 +2,19 @@
 
 ## Status
 
-Proposed for Phase 1B-I2 scope assurance.
+Accepted and implemented at the contract layer by Phase 1B-I2-I1.
 
 ## Context
 
 Phase 1B-I1 established provider-neutral job, asset, provenance, validation, and provider capability contracts.
 
-The next architectural risk is binding identity, private assets, restricted body evidence, and provenance history directly to a vendor before the domain rules for persistence and storage are explicit.
+The next architectural risk was binding permanent design identity, private production assets, restricted body evidence, audit history, and provenance directly to a vendor before persistence and storage semantics were explicit.
 
 ## Decision
 
-Define persistence and object-storage boundaries before selecting a concrete backend.
+Implement provider-neutral persistence and object-storage contracts before selecting a concrete backend.
 
-The domain will own:
+The domain now owns:
 
 - permanent Design identity;
 - append-only DesignRevision history;
@@ -22,30 +22,45 @@ The domain will own:
 - append-only provenance;
 - asset security classification;
 - authorized signed-delivery requests;
-- audit events;
+- append-only audit events;
 - retention/deletion request state.
 
-Concrete persistence and storage adapters will implement capability only.
+Concrete persistence and storage adapters implement capability only.
 
-They may not grant authorization, weaken asset classifications, overwrite immutable evidence, collapse revision history, or bypass audit requirements.
+They may not grant authorization, weaken asset classifications, overwrite immutable evidence, collapse revision/provenance history, or bypass audit requirements.
 
-## Consequences
+## Enforced consequences
 
-Positive:
+The contract layer now rejects:
+
+- duplicate revision identities;
+- later revisions without a valid parent;
+- in-place replacement of locked canonical snapshots;
+- duplicate provenance-record identities;
+- storage security-class changes;
+- expired or incomplete delivery requests;
+- storage adapters that hold workflow authority;
+- physical-deletion eligibility under legal hold;
+- physical-deletion eligibility without approved request state;
+- physical-deletion eligibility without prior correlated audit evidence;
+- duplicate audit-event identities.
+
+## Positive effects
 
 - backend providers remain replaceable;
 - Design Registry semantics are established before SQL schema design;
-- restricted cover-up evidence receives explicit treatment before uploads exist;
-- signed delivery is separated from authorization;
-- deletion becomes auditable rather than an untracked destructive operation;
-- future Supabase or alternative-provider evaluation can be measured against stable contracts.
+- restricted cover-up evidence is protected before upload implementation exists;
+- signed delivery remains separate from authorization;
+- deletion becomes auditable instead of silently destructive;
+- Supabase or another provider can later be evaluated against stable contracts.
 
-Tradeoffs:
+## Tradeoffs
 
-- no real database or object storage becomes available in this phase;
-- migration design remains deferred;
-- authorization remains a separate future concern;
-- retention enforcement remains contract-level until persistence exists.
+- no real database or object storage is available yet;
+- SQL migration design remains deferred;
+- authentication and authorization remain separate future concerns;
+- retention enforcement is contract-level until durable persistence exists;
+- physical deletion remains intentionally absent.
 
 ## Non-goals
 
