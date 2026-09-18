@@ -1,29 +1,40 @@
 # Development Backend Integration — Phase 1B-I4
 
-## Purpose
+## Implementation status
 
-Phase 1B-I4 introduces the first concrete backend adapter target while preserving the provider-neutral domain.
+Phase 1B-I4-I1 now contains a development-only Supabase infrastructure package that maps existing provider-neutral domain contracts into provider-specific adapter boundaries.
 
-Supabase is selected for the development integration slice only.
+No Supabase project was provisioned because the connected Supabase account currently exposes no projects and this phase does not authorize provider provisioning.
 
-## Architectural rule
+## Dependency direction
 
-The dependency direction remains:
+The enforced dependency direction is:
 
 Application / Domain
 → Provider-neutral interfaces
-→ Infrastructure adapters
-→ Supabase development services
+→ `@tattoo/infrastructure`
+→ Supabase development gateways
 
-The domain never imports Supabase SDK types.
+The domain package does not import Supabase SDK or provider-specific types.
 
-Only the infrastructure package knows about provider-specific APIs.
+## Development configuration
 
-## Development database mapping
+The adapter configuration is loaded through an explicit development/test-only contract.
 
-The development persistence adapter will map the existing domain repository contracts onto PostgreSQL-backed storage.
+Required values are represented in `.env.example` only as placeholders.
 
-The first integration target covers:
+Configuration fails closed when:
+
+- required values are missing;
+- the environment is not development/test;
+- a privileged server credential is supplied to a client runtime;
+- security-class buckets are not distinct.
+
+No real credentials are committed.
+
+## Development database adapter boundary
+
+The infrastructure package implements provider-specific repositories for:
 
 - Design Registry;
 - DesignRevision;
@@ -33,98 +44,98 @@ The first integration target covers:
 - AuditEvent;
 - RetentionRequest.
 
-Provider persistence must preserve the existing domain invariants:
+The adapters preserve domain rules before invoking the provider gateway:
 
 - permanent Design IDs;
 - append-only revisions;
 - immutable canonical snapshots;
 - append-only provenance;
 - append-only audit events;
-- no silent history collapse.
+- append-only retention requests.
 
-## Development storage mapping
+No SQL migration is included.
 
-The development storage adapter will map the existing ObjectStorageAdapter onto Supabase Storage.
+## Development storage adapter boundary
 
-Logical security classes remain canonical:
+`SupabaseObjectStorageAdapter` implements the provider-neutral `ObjectStorageAdapter`.
 
-- PUBLIC
-- PRIVATE_DESIGN
-- RESTRICTED_EVIDENCE
+Security classes map to separate configured bucket names:
 
-The provider-specific bucket/namespace layout may implement those classes, but it may not change their meaning.
+- PUBLIC;
+- PRIVATE_DESIGN;
+- RESTRICTED_EVIDENCE.
 
-RESTRICTED_EVIDENCE must never use a public bucket.
+The adapter never changes the domain security class and always uploads with `upsert: false`.
+
+RESTRICTED_EVIDENCE therefore cannot be silently routed to a public bucket through this adapter.
 
 ## Identity mapping
 
-Supabase Auth is an identity source, not the authorization authority.
+Supabase identity data is mapped into the canonical Principal only after a trusted application role assignment is supplied.
 
-The identity adapter maps provider identity/session claims into the canonical Principal contract.
+Provider metadata role claims are intentionally ignored as authorization authority.
 
-The adapter may establish:
-
-- principal ID;
-- authenticated state;
-- provider subject metadata;
-- authentication context.
-
-It may not establish final application permission or relationship access.
-
-All application access decisions still flow through authorize().
-
-## RLS boundary
-
-Supabase Row Level Security may be used as defense in depth in a later implementation stage.
-
-RLS does not replace:
-
-- domain permission policy;
-- resource relationship checks;
-- restricted-evidence policy;
-- service-identity boundaries;
-- audit correlation.
-
-A database policy must not be interpreted as permission to weaken domain authorization.
+The identity adapter therefore establishes authenticated identity context but does not grant application permissions.
 
 ## Signed delivery
 
-The storage adapter may create a time-limited signed URL only after it receives an AuthorizedDeliveryRequest that was produced from a matching domain ALLOW decision.
+The signed-delivery adapter consumes an already-authorized `AuthorizedDeliveryRequest`.
 
-Signed URLs are bearer capabilities and must be treated as sensitive.
+Before asking the provider for a signed URL, it verifies:
 
-For PRIVATE_DESIGN and RESTRICTED_EVIDENCE:
+- request validity and future expiry;
+- asset location exists;
+- stored security class matches the authorized request;
+- TTL does not exceed the configured security-class limit.
 
-- TTL is explicit;
-- TTL is short by default;
-- URLs are never committed or logged in full;
-- creation is audit-correlated;
-- security class must match the authorized asset.
+Current maximum TTLs are:
 
-## Privileged credentials
+- RESTRICTED_EVIDENCE: 15 minutes;
+- PRIVATE_DESIGN: 60 minutes;
+- PUBLIC: 24 hours.
 
-Development privileged credentials are server-only.
+Signed URLs remain bearer capabilities and must not be persisted in logs.
 
-They may not be:
+## Supabase plugin evidence
 
-- embedded in browser bundles;
-- committed;
-- returned to clients;
-- placed in public runtime configuration.
+The connected Supabase plugin was used during implementation to inspect the account and current documentation.
 
-Any adapter requiring privileged capability must fail closed if executed in a client context.
+Observed account state:
 
-## Development-only assurance
+- existing Supabase projects: **0**.
 
-Phase 1B-I4-I1 proves adapter compatibility only.
+Current Supabase documentation confirms:
 
-It does not prove:
+- privileged service-role operations are server-only;
+- private Storage assets can be delivered using time-limited signed URLs;
+- signed URLs remain valid until their configured expiry.
 
-- production scalability;
-- production privacy readiness;
-- production backup/recovery readiness;
-- production retention compliance;
-- production secret-management readiness;
-- production incident-response readiness.
+Because there is no existing development project and provider provisioning is not authorized in this phase, live database/storage calls were not performed.
 
-Those require separate production-readiness gates.
+## Integration-test model
+
+Integration tests use synthetic in-memory gateways that exercise the exact provider adapter behavior without network access or real customer data.
+
+The tests cover:
+
+- fail-closed configuration;
+- append-only persistence behavior;
+- storage-class bucket routing;
+- provider identity mapping;
+- signed-delivery TTL/security-class checks;
+- append-only audit/retention behavior.
+
+## Production boundary
+
+Phase 1B-I4-I1 does not prove production readiness and does not authorize:
+
+- production Supabase;
+- production secrets;
+- production RLS policies;
+- SQL migrations;
+- production storage;
+- real customer body imagery;
+- deployment;
+- payment activation;
+- production AI provider;
+- destructive production operations.
