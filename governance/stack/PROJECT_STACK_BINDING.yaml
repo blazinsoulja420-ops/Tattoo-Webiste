@@ -1,0 +1,29 @@
+{
+  "binding_id": "TAT-UPE-STACK-001",
+  "binding_version": "1.0.0",
+  "status": "ACTIVE",
+  "project_id": "UP-TATTOO-001",
+  "canonical_stack": {
+    "upe": "1.0.1",
+    "upgs": "3.1.1",
+    "uprs": "2.2.1",
+    "upos": "1.1.1"
+  },
+  "canonical_hashes": {
+    "upe": "51ACE3EC063DB49C879231696DF9692968DF2BE006DD85723C4EE6AC6A8E9F0D",
+    "upgs": "B73996A3D1EC43DF679AAF1CAD4170A5F8FBDD9E9112C53A1C4F2032ABDE8A3D",
+    "uprs": "6F337B9391C64124E30CD5122E3B6DBD71C9DFF02C8D4B34C1626F80BDF4D553",
+    "upos": "779BF941F138BF0D63A09758D22E4EC0FFCF29270929D3A7AAB4A141504B06C0"
+  },
+  "inheritance": {
+    "mode": "STRICT_AUTOMATIC_NON_WEAKENING",
+    "fail_closed": true,
+    "silent_overwrite": false,
+    "project_specific_strengthening_preserved": true
+  },
+  "authority": {
+    "canonical_authority_chain_unchanged": true,
+    "capability_never_equals_authority": true,
+    "connector_access_never_equals_authority": true
+  }
+}
