@@ -28,7 +28,7 @@ export class SupabaseDesignRegistryRepository implements DesignRegistryRepositor
 
   async get(designId: string): Promise<DesignRegistryRecord | null> {
     return asRecord<DesignRegistryRecord>(
-      await this.data.getOne("design_registry", { design_id: designId }),
+      await this.data.getOne("design_registry", { designId }),
     );
   }
 
@@ -45,7 +45,7 @@ export class SupabaseDesignRevisionRepository implements DesignRevisionRepositor
 
   async list(designId: string): Promise<readonly DesignRevisionRecord[]> {
     return asRecords<DesignRevisionRecord>(
-      await this.data.list("design_revisions", { design_id: designId }, "createdAt"),
+      await this.data.list("design_revisions", { designId }, "createdAt"),
     );
   }
 
@@ -62,8 +62,8 @@ export class SupabaseCanonicalSnapshotRepository implements CanonicalSnapshotRep
   async get(designId: string, revisionId: string): Promise<CanonicalDesignSnapshot | null> {
     return asRecord<CanonicalDesignSnapshot>(
       await this.data.getOne("canonical_snapshots", {
-        design_id: designId,
-        revision_id: revisionId,
+        designId,
+        revisionId,
       }),
     );
   }
@@ -80,7 +80,7 @@ export class SupabaseAssetMetadataRepository implements AssetMetadataRepository 
 
   async get(assetId: string): Promise<AssetRecord | null> {
     return asRecord<AssetRecord>(
-      await this.data.getOne("assets", { asset_id: assetId }),
+      await this.data.getOne("assets", { assetId }),
     );
   }
 
@@ -97,7 +97,7 @@ export class SupabaseProvenanceRepository implements ProvenanceRepository {
 
   async listForDesign(designId: string): Promise<readonly ProvenanceRecord[]> {
     return asRecords<ProvenanceRecord>(
-      await this.data.list("provenance", { design_id: designId }, "createdAt"),
+      await this.data.list("provenance", { designId }, "createdAt"),
     );
   }
 
