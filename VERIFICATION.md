@@ -14,72 +14,61 @@
 - UPOS: 1.1.1
 - Inheritance: `STRICT_AUTOMATIC_NON_WEAKENING`
 
-## C0 governance baseline
+## Established checkpoints
 
-- Baseline commit: `26a5e4e3d572e397ab459a1d112f87df9ecc5378`
-- Result: **PASS**
+- C0 governance baseline: `26a5e4e3d572e397ab459a1d112f87df9ecc5378` — **PASS**
+- Phase 1A merge: `5c538ef63b3da5320a3b8de8df9f68636d792525` — **PASS**
+- Phase 1B definition merge: `844d442da0fa92edd8f95f148a3d6a3311aad4d9` — **PASS**
+- Phase 1B-I1 merge: `a57e81499763bb163929505bd4d47e58479226db` — **PASS**
 
-## Phase 1A
+## Phase 1B-I2 definition controlled integration
 
-- Merge commit: `5c538ef63b3da5320a3b8de8df9f68636d792525`
-- Result: **COMPLETE / PASS**
-
-## Phase 1B definition
-
-- Merge commit: `844d442da0fa92edd8f95f148a3d6a3311aad4d9`
-- Result: **COMPLETE / PASS**
-
-## Phase 1B-I1 controlled integration
-
-- Authorized base: `84bdd822ba73305d6546eaa2aec450cec0f4b086`
-- Independently assured candidate: `1dd1f463635a0cc7ab1a584071602177d3b65eba`
-- PR: `#3 — Phase 1B-I1 — Provider-Neutral Contracts`
-- Exact changed paths: **16**
+- Authorized base: `4d928d1f6df875250d29f1e8f19faf285d0afb44`
+- Assured candidate: `402baac66ae06f4f0a6aff13d4a85cef8f464e19`
+- PR: `#4 — Phase 1B-I2 — Persistence & Storage Boundary Definition`
+- Exact changed paths: **3**
 - Candidate behind base: **0**
 - Unauthorized deletions: **0**
-- Merge commit: `a57e81499763bb163929505bd4d47e58479226db`
+- Merge commit: `cb329d6f22e568fb78835682d97985ac96dff502`
 
 Post-merge validation:
 
-- Governance Gate run `35361744717`: **PASS**
-- Foundation CI run `35361744746`: **PASS**
+- Governance Gate run `35364710934`: **PASS**
+- Foundation CI run `35364710960`: **PASS**
 - Frozen-lockfile install: **PASS**
 - Governance validation/tests: **PASS**
 - Lint: **PASS**
 - TypeScript strict typecheck: **PASS**
-- Existing and Phase 1B-I1 tests: **PASS**
+- Existing tests: **PASS**
 - Next.js build: **PASS**
 
-Phase 1B-I1 is therefore closed as **COMPLETE / PASS**.
+Phase 1B-I2 Definition & Scope Assurance is therefore closed as **COMPLETE / PASS**.
 
-## Phase 1B-I1 capabilities now established
+## Phase 1B-I2-I1 defined implementation boundary
 
-The repository now has provider-neutral contracts for:
+The next implementation work package is provider-neutral and limited to the exact 17-path manifest defined in `docs/phases/PHASE-1B-I2-DEFINITION.md`.
 
-- asynchronous job identity and lifecycle;
-- canonical-design render eligibility;
-- production/private/restricted asset classification;
-- append-only derivative provenance lineage;
-- independent production validation;
-- ARTIST_REVIEW gating;
-- provider adapters constrained to `CAPABILITY_ONLY`;
-- runtime validation schemas;
-- tests for canonical locking, geometry drift, cover-up evidence immutability, lineage, and validation failure.
+It covers:
 
-No concrete AI provider, database, object storage, authentication provider, payment processor, deployment provider, or public publishing integration is active.
+- Design Registry and immutable revision contracts;
+- canonical snapshot persistence contracts;
+- asset metadata persistence;
+- append-only provenance persistence;
+- provider-neutral object-storage boundaries;
+- PUBLIC / PRIVATE_DESIGN / RESTRICTED_EVIDENCE separation;
+- signed/expiring delivery contracts;
+- append-only audit events;
+- retention and deletion-request contracts;
+- runtime schemas and security/production tests.
 
-## Project-specific strengthening
-
-The repository continues to require synchronized FTA / ACR / TRS outputs from one canonical design, genuinely hand-drawn-looking ACR output, immutable cover-up evidence, human tattoo-artist execution authority, strict asset-class separation, and fail-closed privacy/security handling.
+No concrete database, storage backend, migration, authentication system, payment processor, deployment provider, public publishing, physical deletion, or production activation is authorized by this checkpoint.
 
 ## Authority boundary
 
-Completion of Phase 1B-I1 does not grant release, deployment, production activation, payment activation, public auto-publishing, or destructive authority.
+Completion of the Phase 1B-I2 definition does not grant implementation, release, deployment, production activation, payment activation, public auto-publishing, or destructive authority.
 
 ## Next governed work package
 
-`PHASE-1B-I2 — Definition & Scope Assurance`
+`PHASE-1B-I2-I1 — Provider-Neutral Persistence, Storage, Audit, Retention Contracts`
 
-The recommended next slice is persistence/storage boundary design: durable Design Registry, append-only revisions/provenance, private/restricted asset storage contracts, signed-delivery boundaries, and audit-event persistence without yet binding to a concrete backend provider.
-
-Implementation is not authorized by this record.
+Implementation is **not yet authorized**. The next gate is explicit Phase 1B-I2-I1 implementation authorization.
