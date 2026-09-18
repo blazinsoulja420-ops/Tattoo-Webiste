@@ -15,7 +15,7 @@ export interface AuthorizationDecision {
   permission: Permission;
   resourceType: string;
   resourceId: string;
-  securityClass?: AssetSecurityClass;
+  securityClass?: AssetSecurityClass | undefined;
   auditCorrelationId: string;
   reason: string;
   decidedAt: string;
