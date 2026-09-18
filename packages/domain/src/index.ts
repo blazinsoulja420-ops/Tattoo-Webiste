@@ -2,3 +2,8 @@ export * from "./design";
 export * from "./production";
 export * from "./state-machine";
 export * from "./coverup";
+export * from "./jobs";
+export * from "./assets";
+export * from "./provenance";
+export * from "./validation";
+export * from "./providers";
