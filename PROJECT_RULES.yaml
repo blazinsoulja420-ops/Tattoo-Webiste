@@ -1,0 +1,57 @@
+{
+  "schema_version": "1.0.0",
+  "project_id": "UP-TATTOO-001",
+  "project_name": "Tattoo Platform v2",
+  "applies_to_all_project_work": true,
+  "authority": {
+    "inheritance": "AUTOMATIC",
+    "non_weakening": true,
+    "authority_chain": [
+      "EXTERNAL_CONSTRAINTS",
+      "UPGS",
+      "UPRS",
+      "PROJECT_GOVERNANCE",
+      "PROJECT_RULES",
+      "PHASE_CONTROLS",
+      "AUTHORIZED_SCOPE",
+      "TASK_AUTHORIZATION",
+      "CURRENT_EXECUTION_INSTRUCTION"
+    ]
+  },
+  "enforcement": {
+    "mode": "PROJECT_NATIVE",
+    "fail_closed": true,
+    "external_ci_role": "SUPPLEMENTAL"
+  },
+  "scope": {
+    "exact_manifest_required": true,
+    "scope_expansion_requires_authorization": true,
+    "preserve_unrelated_changes": true,
+    "unauthorized_path_changes_prohibited": true
+  },
+  "authorization": {
+    "implementation": "REQUIRES_APPROVAL",
+    "controlled_testing": "REQUIRES_APPROVAL",
+    "commit": "REQUIRES_APPROVAL",
+    "push": "REQUIRES_APPROVAL",
+    "merge": "REQUIRES_APPROVAL",
+    "release": "REQUIRES_APPROVAL",
+    "deployment": "REQUIRES_APPROVAL",
+    "payment_activation": "REQUIRES_APPROVAL",
+    "public_auto_publishing": "REQUIRES_APPROVAL",
+    "production_activation": "PROHIBITED",
+    "destructive_operations": "PROHIBITED"
+  },
+  "testing": {
+    "required_before_completion": true,
+    "failure_blocks_progression": true,
+    "independent_assurance_required_for_high_risk_work": true,
+    "synthetic_evidence_cannot_prove_real_world_tattoo_outcomes": true
+  },
+  "security": {
+    "secret_commit_prohibited": true,
+    "authority_escalation_prohibited": true,
+    "restricted_body_evidence_publication_prohibited": true,
+    "private_production_asset_publication_prohibited": true
+  }
+}
