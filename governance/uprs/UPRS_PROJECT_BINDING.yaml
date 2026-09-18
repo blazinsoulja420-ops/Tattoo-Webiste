@@ -1,0 +1,46 @@
+{
+  "binding_id": "TAT-UPRS-BIND-001",
+  "binding_version": "1.0.0",
+  "project": {
+    "id": "UP-TATTOO-001",
+    "name": "Tattoo Platform v2"
+  },
+  "uprs": {
+    "version": "2.2.1",
+    "package_sha256": "6F337B9391C64124E30CD5122E3B6DBD71C9DFF02C8D4B34C1626F80BDF4D553",
+    "status": "CANONICAL_ADOPTED",
+    "inheritance": "automatic",
+    "non_weakening": true
+  },
+  "state": {
+    "status": "ACTIVE",
+    "execution_risk": "UPRS:R3",
+    "execution_risk_name": "HIGH",
+    "minimum_evidence_strength": "UPRS:E3",
+    "rollback_required_for_mutating_high_risk_work": true,
+    "independent_assurance_required_for_high_risk_work": true,
+    "stale_state_policy": "FAIL_CLOSED"
+  },
+  "risk_required_gates": [
+    "CONTEXT_PASS",
+    "AUTHORITY_PASS",
+    "SCOPE_PASS",
+    "DEPENDENCY_PASS",
+    "TEST_PASS",
+    "SECURITY_PASS",
+    "RECOVERY_PASS",
+    "ASSURANCE_PASS",
+    "FINAL_AUDIT_PASS"
+  ],
+  "local_strengthening_controls": [
+    {"id":"TAT-001","effect":"strengthen_only"},
+    {"id":"TAT-002","effect":"strengthen_only"},
+    {"id":"TAT-003","effect":"strengthen_only"},
+    {"id":"TAT-004","effect":"strengthen_only"},
+    {"id":"TAT-005","effect":"strengthen_only"},
+    {"id":"TAT-006","effect":"strengthen_only"},
+    {"id":"TAT-007","effect":"strengthen_only"},
+    {"id":"TAT-008","effect":"strengthen_only"}
+  ],
+  "exceptions": []
+}
