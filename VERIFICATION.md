@@ -22,55 +22,56 @@
 - Phase 1B-I1 merge: `a57e81499763bb163929505bd4d47e58479226db` — **PASS**
 - Phase 1B-I2 definition merge: `cb329d6f22e568fb78835682d97985ac96dff502` — **PASS**
 - Phase 1B-I2-I1 merge: `92e1f7f3186aacf3f34ff33d94453c8b339bbfcc` — **PASS**
+- Phase 1B-I3 definition merge: `147e6c865595118141d297000355ff81d17b428b` — **PASS**
 
-## Phase 1B-I3 definition controlled integration
+## Phase 1B-I3-I1 controlled integration
 
-- Authorized base: `0456e73e5693da7a93973628bce6ac9c548ae9e2`
-- Assured candidate: `6945e33d9be27e1b1a01f04c0c64cf9576c01b3f`
-- PR: `#6 — Phase 1B-I3 — Authentication & Authorization Boundary Definition`
-- Exact changed paths: **3**
+- Authorized base: `a03526b786cd76ad32312daec52c7173d356baa5`
+- Assured candidate: `057b3797e2670b5d39e2f9bc6281c8ad7e7db6cc`
+- PR: `#7 — Phase 1B-I3-I1 — Provider-Neutral Authorization Contracts`
+- Exact changed paths: **17**
 - Candidate behind base: **0**
 - Unauthorized deletions: **0**
-- Merge commit: `147e6c865595118141d297000355ff81d17b428b`
+- Merge commit: `5410fcfb5e7441f31c445f8acef0290375198823`
 
 Post-merge validation:
 
-- Governance Gate run `35366404926`: **PASS**
-- Foundation CI run `35366404901`: **PASS**
+- Governance Gate run `35367528881`: **PASS**
+- Foundation CI run `35367528809`: **PASS**
 - Frozen-lockfile install: **PASS**
 - Governance validation/tests: **PASS**
 - Lint: **PASS**
 - TypeScript strict typecheck: **PASS**
-- Existing tests: **PASS**
+- Existing and new authorization/security tests: **PASS**
 - Next.js build: **PASS**
 
-Phase 1B-I3 Definition & Scope Assurance is therefore closed as **COMPLETE / PASS**.
+Phase 1B-I3-I1 is therefore closed as **COMPLETE / PASS**.
 
-## Phase 1B-I3-I1 defined implementation boundary
+## Capabilities established by Phase 1B-I3-I1
 
-The next implementation work package is provider-neutral and limited to the exact 17-path manifest defined in `docs/phases/PHASE-1B-I3-DEFINITION.md`.
+The repository now contains provider-neutral contracts for:
 
-It covers:
-
-- canonical principal identity;
-- CUSTOMER / ARTIST / SHOP / ADMIN / SYSTEM_AI_SERVICE roles;
+- canonical principals and roles;
 - least-privilege permission policy;
-- resource ownership and relationship-aware access;
-- PRIVATE_DESIGN and RESTRICTED_EVIDENCE authorization;
-- signed-delivery authorization decisions;
-- bounded service identities;
-- fail-closed ALLOW / DENY decisions;
-- audit correlation for authorization results;
-- runtime schemas and security tests.
+- relationship-aware resource access;
+- fail-closed authorization decisions;
+- PRIVATE_DESIGN and RESTRICTED_EVIDENCE access rules;
+- signed-delivery preauthorization;
+- bounded SYSTEM_AI_SERVICE identities;
+- audit-correlated ALLOW / DENY decisions;
+- runtime validation schemas;
+- security tests for customer, artist, shop, admin, restricted evidence, and service identities.
 
-No concrete authentication provider, OAuth/OIDC setup, password storage, MFA, production session/token issuance, billing, deployment, or production activation is authorized by this checkpoint.
+No concrete authentication provider, OAuth/OIDC integration, password store, MFA, production session/token issuer, billing system, deployment provider, public publishing, or production activation is active.
 
 ## Authority boundary
 
-Completion of the Phase 1B-I3 definition does not grant implementation, release, deployment, production activation, payment activation, public auto-publishing, or destructive authority.
+Completion of Phase 1B-I3-I1 does not grant release, deployment, production activation, payment activation, public auto-publishing, or destructive authority.
 
 ## Next governed work package
 
-`PHASE-1B-I3-I1 — Provider-Neutral Authentication, Authorization, Resource Access, Service Identity Contracts`
+`PHASE-1B-I4 — Definition & Scope Assurance`
 
-Implementation is **not yet authorized**. The next gate is explicit Phase 1B-I3-I1 implementation authorization.
+Recommended next slice: provider-adapter and development-backend integration design that maps the now-stable persistence, storage, authentication, and authorization contracts onto a concrete development environment without granting production authority.
+
+Implementation is not authorized by this record.
