@@ -23,19 +23,24 @@
 
 ## Phase 1A controlled integration
 
-- Authorized base: `66a880df7517058a903e9ea90ce57a4827d0e697`
-- Independently assured candidate: `eeb0eeb178ee669b1480a92586e91f3742a84cc3`
-- PR: `#1 — Phase 1A — Canonical Repository Bootstrap`
+- Assured candidate: `eeb0eeb178ee669b1480a92586e91f3742a84cc3`
 - Merge commit: `5c538ef63b3da5320a3b8de8df9f68636d792525`
-- Merge result: **PASS**
-- Candidate changed paths: **50**
+- Result: **COMPLETE / PASS**
+
+## Phase 1B definition integration
+
+- Authorized base: `942843b61607d204f065a0e48d11243e0d6dc3f4`
+- Assured definition candidate: `36ee4fcf5e72e9bae2872896f65953aa27a1c5c8`
+- PR: `#2 — Phase 1B — Definition & Scope Assurance`
+- Merge commit: `844d442da0fa92edd8f95f148a3d6a3311aad4d9`
+- Candidate changed paths: **3**
 - Candidate behind base: **0**
 - Candidate deleted paths: **0**
 
-Post-merge validation on the merge commit:
+Post-merge validation:
 
-- Governance Gate run `35360046594`: **PASS**
-- Foundation CI run `35360046585`: **PASS**
+- Governance Gate run `35360805622`: **PASS**
+- Foundation CI run `35360805649`: **PASS**
 - Frozen-lockfile install: **PASS**
 - Governance validation: **PASS**
 - Lint: **PASS**
@@ -43,25 +48,22 @@ Post-merge validation on the merge commit:
 - Tests: **PASS**
 - Build: **PASS**
 
-Phase 1A is therefore closed as **COMPLETE / PASS**.
+Phase 1B Definition & Scope Assurance is therefore closed as **COMPLETE / PASS**.
+
+## Phase 1B-I1 defined implementation boundary
+
+The next implementation work package is provider-neutral and limited to the exact 16-path manifest defined in `docs/phases/PHASE-1B-DEFINITION.md`.
+
+It covers job, asset, provenance, validation, and provider-adapter contracts plus runtime schemas and tests.
+
+No live AI provider, database, object storage, payment processor, deployment provider, public publishing, or production activation is authorized by this checkpoint.
 
 ## Project-specific strengthening
 
-The repository requires:
-
-- synchronized FTA / ACR / TRS outputs from one canonical design;
-- genuinely hand-drawn-looking ACR output;
-- immutable original cover-up evidence and derivative lineage;
-- human tattoo-artist execution authority;
-- strict public/private/restricted asset separation;
-- fail-closed handling of security/privacy conflicts.
-
-## Authority boundary
-
-Completion of Phase 1A does not grant release, deployment, payment activation, public auto-publishing, production activation, or destructive authority.
+The repository requires synchronized FTA / ACR / TRS outputs from one canonical design, genuinely hand-drawn-looking ACR output, immutable cover-up evidence, human tattoo-artist execution authority, strict asset-class separation, and fail-closed privacy/security handling.
 
 ## Next governed work package
 
-`PHASE-1B — Definition & Scope Assurance`
+`PHASE-1B-I1 — Provider-Neutral Job, Asset, Provenance, Validation Contracts`
 
-Phase 1B is the next gate. Its implementation scope must be defined and independently assured before feature implementation proceeds.
+Implementation has **not yet been authorized**. The next gate is explicit Phase 1B-I1 implementation authorization.
