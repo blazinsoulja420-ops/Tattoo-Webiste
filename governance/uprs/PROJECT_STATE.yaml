@@ -5,15 +5,23 @@
   "authoritative": true,
   "checkpoint": {
     "id": "TAT-C0-GOVERNANCE-BOOTSTRAP",
-    "state": "GOVERNANCE_BOOTSTRAP_IN_PROGRESS"
+    "state": "GOVERNANCE_BOOTSTRAP_ESTABLISHED",
+    "governing_baseline": "26a5e4e3d572e397ab459a1d112f87df9ecc5378",
+    "governance_gate": {
+      "workflow": "Governance Gate",
+      "run_number": 2,
+      "run_id": 35358656643,
+      "head_sha": "26a5e4e3d572e397ab459a1d112f87df9ecc5378",
+      "conclusion": "PASS"
+    }
   },
   "primary_context": "PROJECT_FOUNDATION",
-  "primary_mode": "GOVERNANCE_BINDING",
-  "secondary_modes": ["DISCOVERY","ARCHITECTURE","REQUIREMENTS","SECURITY","TESTING"],
+  "primary_mode": "FOUNDATION_IMPLEMENTATION",
+  "secondary_modes": ["ARCHITECTURE","REQUIREMENTS","SECURITY","TESTING"],
   "current_work_package": {
-    "id": "PHASE-1G",
-    "name": "Governance Binding Bootstrap",
-    "state": "AUTHORIZED_IMPLEMENTATION",
+    "id": "PHASE-1A",
+    "name": "Canonical Repository Bootstrap",
+    "state": "AUTHORIZED_PENDING_IMPLEMENTATION",
     "control_promotion_authorized": false,
     "release_authority": "NOT_GRANTED",
     "deployment_authority": "NOT_GRANTED",
@@ -25,5 +33,5 @@
     "upos_projection": "NON_AUTHORITATIVE",
     "governance_binding": "POLICY_AND_BINDING_NOT_RUNTIME_AUTHORITY"
   },
-  "next_gate": "C0_GOVERNANCE_VALIDATION_AND_CI"
+  "next_gate": "PHASE_1A_CANONICAL_FOUNDATION_IMPLEMENTATION"
 }
