@@ -1,0 +1,95 @@
+{
+  "binding_id": "TAT-UPE-BIND-001",
+  "binding_version": "1.0.0",
+  "binding_date": "2026-09-18",
+  "binding_status": "CANONICAL_GOVERNANCE_BOOTSTRAP",
+  "project": {
+    "id": "UP-TATTOO-001",
+    "name": "Tattoo Platform v2",
+    "product_name": "Tattoo Platform v2",
+    "authoritative_repository": "blazinsoulja420-ops/Tattoo-Webiste",
+    "state_owner": "governance/uprs/PROJECT_STATE.yaml"
+  },
+  "canonical_ecosystem": {
+    "stack_version": "1.0.1",
+    "stack_sha256": "51ACE3EC063DB49C879231696DF9692968DF2BE006DD85723C4EE6AC6A8E9F0D",
+    "inheritance_mode": "STRICT_AUTOMATIC_NON_WEAKENING"
+  },
+  "governance": {
+    "authority": "UPGS",
+    "adopted_version": "3.1.1",
+    "package_sha256": "B73996A3D1EC43DF679AAF1CAD4170A5F8FBDD9E9112C53A1C4F2032ABDE8A3D",
+    "status": "CANONICAL_ADOPTED"
+  },
+  "uprs": {
+    "version": "2.2.1",
+    "package_sha256": "6F337B9391C64124E30CD5122E3B6DBD71C9DFF02C8D4B34C1626F80BDF4D553",
+    "status": "CANONICAL_ADOPTED",
+    "binding_file": "governance/uprs/UPRS_PROJECT_BINDING.yaml",
+    "state_file": "governance/uprs/PROJECT_STATE.yaml"
+  },
+  "upos": {
+    "version": "1.1.1",
+    "package_sha256": "779BF941F138BF0D63A09758D22E4EC0FFCF29270929D3A7AAB4A141504B06C0",
+    "status": "CANONICAL_ADOPTED",
+    "role": "NON_AUTHORITATIVE_ORCHESTRATION_RUNTIME",
+    "projection_file": "governance/upos/UPOS_PROJECT_PROJECTION.yaml"
+  },
+  "authority_model": {
+    "governance_authority": "UPGS v3.1.1 plus explicitly authorized project governance",
+    "project_owner": "Project Owner",
+    "implementation_owner": "Authorized implementation actor for the bounded change",
+    "verification_authority": "Controlled verification actor",
+    "release_authority": "Separate explicit authorization required",
+    "deployment_authority": "Separate explicit authorization required",
+    "production_authority": "Not granted by governance bootstrap"
+  },
+  "classification": {
+    "types": ["software", "ai", "web", "automation", "commerce", "sensitive_data"],
+    "governance_risk": "UPGS:R4",
+    "execution_risk": "UPRS:R3",
+    "operational_state": "development",
+    "public_internet_service_target": true,
+    "production_capable": false,
+    "target_production_capable": true,
+    "handles_sensitive_data": true,
+    "agentic_ai": true
+  },
+  "authority_boundaries": {
+    "research": "ALLOWED",
+    "discovery": "ALLOWED",
+    "requirements_analysis": "ALLOWED",
+    "architecture_design": "ALLOWED",
+    "read_only_audit": "ALLOWED",
+    "read_only_assurance": "ALLOWED",
+    "governance_binding": "ALLOWED",
+    "implementation": "REQUIRES_APPROVAL",
+    "controlled_testing": "REQUIRES_APPROVAL",
+    "staging": "REQUIRES_APPROVAL",
+    "commit": "REQUIRES_APPROVAL",
+    "push": "REQUIRES_APPROVAL",
+    "merge": "REQUIRES_APPROVAL",
+    "release": "REQUIRES_APPROVAL",
+    "deployment": "REQUIRES_APPROVAL",
+    "production_activation": "PROHIBITED",
+    "destructive_operations": "PROHIBITED"
+  },
+  "project_specific_controls": [
+    "TAT-001 — FTA, ACR, and TRS production outputs SHALL derive from one canonical locked design and fail closed on material geometry drift.",
+    "TAT-002 — ACR output SHALL present as a genuinely hand-drawn artist construction reference rather than a grayscale render.",
+    "TAT-003 — Original cover-up evidence SHALL remain immutable; all derivatives SHALL retain lineage to the original evidence.",
+    "TAT-004 — AI SHALL NOT independently authorize tattoo execution or guarantee concealment, healing, or tattooability.",
+    "TAT-005 — Public marketing assets SHALL be separated from private production assets and restricted cover-up evidence.",
+    "TAT-006 — Production, release, deployment, payment activation, and public auto-publishing require separately authorized gates.",
+    "TAT-007 — Security/privacy conflicts involving body imagery or restricted evidence SHALL fail closed.",
+    "TAT-008 — Project-specific rules may strengthen inherited governance but SHALL NOT weaken the canonical ecosystem without an approved deviation."
+  ],
+  "active_deviations": [],
+  "governance_enforcement": {
+    "validator": "scripts/validate_governance.py",
+    "validator_status": "ACTIVE",
+    "verdict_policy": "FAIL_CLOSED",
+    "ci_workflow": ".github/workflows/governance.yml",
+    "github_actions_role": "SUPPLEMENTAL"
+  }
+}
