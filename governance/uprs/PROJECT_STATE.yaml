@@ -1,0 +1,29 @@
+{
+  "specification": "UPRS_PROJECT_STATE",
+  "canonical_version": "2.2.1",
+  "project_id": "UP-TATTOO-001",
+  "authoritative": true,
+  "checkpoint": {
+    "id": "TAT-C0-GOVERNANCE-BOOTSTRAP",
+    "state": "GOVERNANCE_BOOTSTRAP_IN_PROGRESS"
+  },
+  "primary_context": "PROJECT_FOUNDATION",
+  "primary_mode": "GOVERNANCE_BINDING",
+  "secondary_modes": ["DISCOVERY","ARCHITECTURE","REQUIREMENTS","SECURITY","TESTING"],
+  "current_work_package": {
+    "id": "PHASE-1G",
+    "name": "Governance Binding Bootstrap",
+    "state": "AUTHORIZED_IMPLEMENTATION",
+    "control_promotion_authorized": false,
+    "release_authority": "NOT_GRANTED",
+    "deployment_authority": "NOT_GRANTED",
+    "production_authority": "NOT_GRANTED",
+    "destructive_operations": "PROHIBITED"
+  },
+  "state_ownership": {
+    "this_file": "AUTHORITATIVE_PROJECT_GOVERNANCE_STATE",
+    "upos_projection": "NON_AUTHORITATIVE",
+    "governance_binding": "POLICY_AND_BINDING_NOT_RUNTIME_AUTHORITY"
+  },
+  "next_gate": "C0_GOVERNANCE_VALIDATION_AND_CI"
+}
