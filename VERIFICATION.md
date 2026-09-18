@@ -21,56 +21,56 @@
 - Phase 1B definition merge: `844d442da0fa92edd8f95f148a3d6a3311aad4d9` — **PASS**
 - Phase 1B-I1 merge: `a57e81499763bb163929505bd4d47e58479226db` — **PASS**
 - Phase 1B-I2 definition merge: `cb329d6f22e568fb78835682d97985ac96dff502` — **PASS**
+- Phase 1B-I2-I1 merge: `92e1f7f3186aacf3f34ff33d94453c8b339bbfcc` — **PASS**
 
-## Phase 1B-I2-I1 controlled integration
+## Phase 1B-I3 definition controlled integration
 
-- Authorized base: `836eac0f1952b8a1775011d0cc7d1b033015b6d9`
-- Assured candidate: `1ee7b2662e2e32a3e748708243f47b1d2d6ac206`
-- PR: `#5 — Phase 1B-I2-I1 — Provider-Neutral Persistence & Storage Contracts`
-- Exact changed paths: **17**
+- Authorized base: `0456e73e5693da7a93973628bce6ac9c548ae9e2`
+- Assured candidate: `6945e33d9be27e1b1a01f04c0c64cf9576c01b3f`
+- PR: `#6 — Phase 1B-I3 — Authentication & Authorization Boundary Definition`
+- Exact changed paths: **3**
 - Candidate behind base: **0**
 - Unauthorized deletions: **0**
-- Merge commit: `92e1f7f3186aacf3f34ff33d94453c8b339bbfcc`
+- Merge commit: `147e6c865595118141d297000355ff81d17b428b`
 
 Post-merge validation:
 
-- Governance Gate run `35365543209`: **PASS**
-- Foundation CI run `35365543261`: **PASS**
+- Governance Gate run `35366404926`: **PASS**
+- Foundation CI run `35366404901`: **PASS**
 - Frozen-lockfile install: **PASS**
 - Governance validation/tests: **PASS**
 - Lint: **PASS**
 - TypeScript strict typecheck: **PASS**
-- Existing and new persistence/security tests: **PASS**
+- Existing tests: **PASS**
 - Next.js build: **PASS**
 
-Phase 1B-I2-I1 is therefore closed as **COMPLETE / PASS**.
+Phase 1B-I3 Definition & Scope Assurance is therefore closed as **COMPLETE / PASS**.
 
-## Capabilities established by Phase 1B-I2-I1
+## Phase 1B-I3-I1 defined implementation boundary
 
-The repository now contains provider-neutral contracts for:
+The next implementation work package is provider-neutral and limited to the exact 17-path manifest defined in `docs/phases/PHASE-1B-I3-DEFINITION.md`.
 
-- permanent Design Registry identity;
-- append-only DesignRevision history;
-- immutable locked canonical snapshots;
-- asset metadata persistence boundaries;
-- append-only provenance;
-- provider-neutral object storage;
-- PUBLIC / PRIVATE_DESIGN / RESTRICTED_EVIDENCE preservation;
-- signed/expiring delivery requests;
-- append-only audit events;
-- retention/deletion request state;
-- legal-hold and audit-before-delete gates.
+It covers:
 
-No concrete database, object-storage backend, SQL migration, auth provider, signed-URL provider, payment processor, deployment provider, public publishing, physical deletion, or production activation is active.
+- canonical principal identity;
+- CUSTOMER / ARTIST / SHOP / ADMIN / SYSTEM_AI_SERVICE roles;
+- least-privilege permission policy;
+- resource ownership and relationship-aware access;
+- PRIVATE_DESIGN and RESTRICTED_EVIDENCE authorization;
+- signed-delivery authorization decisions;
+- bounded service identities;
+- fail-closed ALLOW / DENY decisions;
+- audit correlation for authorization results;
+- runtime schemas and security tests.
+
+No concrete authentication provider, OAuth/OIDC setup, password storage, MFA, production session/token issuance, billing, deployment, or production activation is authorized by this checkpoint.
 
 ## Authority boundary
 
-Completion of Phase 1B-I2-I1 does not grant release, deployment, production activation, payment activation, public auto-publishing, or destructive authority.
+Completion of the Phase 1B-I3 definition does not grant implementation, release, deployment, production activation, payment activation, public auto-publishing, or destructive authority.
 
 ## Next governed work package
 
-`PHASE-1B-I3 — Definition & Scope Assurance`
+`PHASE-1B-I3-I1 — Provider-Neutral Authentication, Authorization, Resource Access, Service Identity Contracts`
 
-The recommended next slice is authentication/authorization and role-policy boundary design for CUSTOMER, ARTIST, SHOP, ADMIN, and SYSTEM/AI SERVICE roles, including least privilege, asset access policy, signed-delivery authorization decisions, and audit-linked permission checks.
-
-Implementation is not authorized by this record.
+Implementation is **not yet authorized**. The next gate is explicit Phase 1B-I3-I1 implementation authorization.
