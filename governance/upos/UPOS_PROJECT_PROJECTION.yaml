@@ -1,0 +1,26 @@
+{
+  "projection_id": "TAT-UPOS-PROJECTION-001",
+  "project_id": "UP-TATTOO-001",
+  "authoritative": false,
+  "projection_role": "NON_AUTHORITATIVE_READ_ONLY_PROJECTION",
+  "sources": {
+    "project_governance": "PROJECT_GOVERNANCE.yaml",
+    "project_state": "governance/uprs/PROJECT_STATE.yaml",
+    "uprs_binding": "governance/uprs/UPRS_PROJECT_BINDING.yaml"
+  },
+  "resolved": {
+    "current_stage": "PHASE_1G_GOVERNANCE_BOOTSTRAP",
+    "current_mode": "GOVERNANCE_BINDING",
+    "next_authorized_action": "C0_GOVERNANCE_VALIDATION_AND_CI",
+    "release_authority": "NOT_GRANTED",
+    "deployment_authority": "NOT_GRANTED",
+    "production_authority": "NOT_GRANTED"
+  },
+  "projection_constraints": {
+    "grants_authority": false,
+    "selects_runtime_mode": false,
+    "invokes_tools_or_models": false,
+    "supersedes_project_state": false,
+    "unresolved_conflict_disposition": "BLOCKED"
+  }
+}
