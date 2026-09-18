@@ -4,39 +4,36 @@
   "project_id": "UP-TATTOO-001",
   "authoritative": true,
   "checkpoint": {
-    "id": "TAT-C7-PHASE-1B-I3-I1-MERGE",
-    "state": "PHASE_1B_I3_I1_MERGED_AND_VERIFIED",
+    "id": "TAT-C8-PHASE-1B-I4-DEFINITION-MERGE",
+    "state": "PHASE_1B_I4_DEFINITION_MERGED_AND_VERIFIED",
     "governing_baseline": "26a5e4e3d572e397ab459a1d112f87df9ecc5378",
-    "phase_1a_merge": "5c538ef63b3da5320a3b8de8df9f68636d792525",
-    "phase_1b_definition_merge": "844d442da0fa92edd8f95f148a3d6a3311aad4d9",
-    "phase_1b_i1_merge": "a57e81499763bb163929505bd4d47e58479226db",
-    "phase_1b_i2_definition_merge": "cb329d6f22e568fb78835682d97985ac96dff502",
-    "phase_1b_i2_i1_merge": "92e1f7f3186aacf3f34ff33d94453c8b339bbfcc",
-    "phase_1b_i3_definition_merge": "147e6c865595118141d297000355ff81d17b428b",
-    "phase_1b_i3_i1_candidate": "057b3797e2670b5d39e2f9bc6281c8ad7e7db6cc",
     "phase_1b_i3_i1_merge": "5410fcfb5e7441f31c445f8acef0290375198823",
+    "phase_1b_i4_definition_candidate": "5a5477ecb0b216fa876b4717f4a285a952e8d3dc",
+    "phase_1b_i4_definition_merge": "c23be2e4b1ff43e95ca6bbba5ffa4b3806820592",
     "post_merge_ci": {
       "governance_gate": {
-        "run_id": 35367528881,
+        "run_id": 35368506269,
         "conclusion": "PASS"
       },
       "foundation_ci": {
-        "run_id": 35367528809,
+        "run_id": 35368506277,
         "conclusion": "PASS"
       }
     }
   },
   "primary_context": "PROJECT_FOUNDATION",
-  "primary_mode": "POST_MERGE_ASSURANCE",
-  "secondary_modes": ["ARCHITECTURE","AUTHENTICATION","AUTHORIZATION","SECURITY","PRIVACY","TESTING"],
+  "primary_mode": "PHASE_1B_I4_I1_IMPLEMENTATION_AUTHORIZED",
+  "secondary_modes": ["INFRASTRUCTURE","SUPABASE_DEVELOPMENT","PERSISTENCE","STORAGE","IDENTITY","SECURITY","TESTING"],
   "current_work_package": {
-    "id": "PHASE-1B-I3-I1",
-    "name": "Provider-Neutral Authentication, Authorization, Resource Access, Service Identity Contracts",
-    "state": "COMPLETE_PASS",
-    "control_promotion_authorized": false,
-    "release_authority": "NOT_GRANTED",
-    "deployment_authority": "NOT_GRANTED",
+    "id": "PHASE-1B-I4-I1",
+    "name": "Supabase Development Backend Adapter Integration",
+    "state": "IMPLEMENTATION_AUTHORIZED",
+    "provider": "SUPABASE_DEVELOPMENT_ONLY",
+    "provider_provisioning_authorized": false,
+    "sql_migration_authorized": false,
     "production_authority": "NOT_GRANTED",
+    "deployment_authority": "NOT_GRANTED",
+    "release_authority": "NOT_GRANTED",
     "destructive_operations": "PROHIBITED"
   },
   "state_ownership": {
@@ -44,5 +41,5 @@
     "upos_projection": "NON_AUTHORITATIVE",
     "governance_binding": "POLICY_AND_BINDING_NOT_RUNTIME_AUTHORITY"
   },
-  "next_gate": "PHASE_1B_I4_DEFINITION_AND_SCOPE_ASSURANCE"
+  "next_gate": "PHASE_1B_I4_I1_IMPLEMENTATION_ASSURANCE"
 }
