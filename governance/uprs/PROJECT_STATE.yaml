@@ -4,29 +4,30 @@
   "project_id": "UP-TATTOO-001",
   "authoritative": true,
   "checkpoint": {
-    "id": "TAT-C1-PHASE-1A-MERGE",
-    "state": "PHASE_1A_MERGED_AND_VERIFIED",
+    "id": "TAT-C2-PHASE-1B-DEFINITION-MERGE",
+    "state": "PHASE_1B_DEFINITION_MERGED_AND_VERIFIED",
     "governing_baseline": "26a5e4e3d572e397ab459a1d112f87df9ecc5378",
-    "phase_1a_candidate": "eeb0eeb178ee669b1480a92586e91f3742a84cc3",
-    "merge_commit": "5c538ef63b3da5320a3b8de8df9f68636d792525",
+    "phase_1a_merge": "5c538ef63b3da5320a3b8de8df9f68636d792525",
+    "phase_1b_definition_candidate": "36ee4fcf5e72e9bae2872896f65953aa27a1c5c8",
+    "phase_1b_definition_merge": "844d442da0fa92edd8f95f148a3d6a3311aad4d9",
     "post_merge_ci": {
       "governance_gate": {
-        "run_id": 35360046594,
+        "run_id": 35360805622,
         "conclusion": "PASS"
       },
       "foundation_ci": {
-        "run_id": 35360046585,
+        "run_id": 35360805649,
         "conclusion": "PASS"
       }
     }
   },
   "primary_context": "PROJECT_FOUNDATION",
-  "primary_mode": "POST_MERGE_ASSURANCE",
+  "primary_mode": "PHASE_1B_IMPLEMENTATION_PREPARATION",
   "secondary_modes": ["ARCHITECTURE","REQUIREMENTS","SECURITY","TESTING"],
   "current_work_package": {
-    "id": "PHASE-1A",
-    "name": "Canonical Repository Bootstrap",
-    "state": "COMPLETE_PASS",
+    "id": "PHASE-1B-I1",
+    "name": "Provider-Neutral Job, Asset, Provenance, Validation Contracts",
+    "state": "DEFINED_NOT_YET_AUTHORIZED_FOR_IMPLEMENTATION",
     "control_promotion_authorized": false,
     "release_authority": "NOT_GRANTED",
     "deployment_authority": "NOT_GRANTED",
@@ -38,5 +39,5 @@
     "upos_projection": "NON_AUTHORITATIVE",
     "governance_binding": "POLICY_AND_BINDING_NOT_RUNTIME_AUTHORITY"
   },
-  "next_gate": "PHASE_1B_DEFINITION_AND_SCOPE_ASSURANCE"
+  "next_gate": "PHASE_1B_I1_IMPLEMENTATION_AUTHORIZATION"
 }
