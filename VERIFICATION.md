@@ -20,55 +20,57 @@
 - Phase 1A merge: `5c538ef63b3da5320a3b8de8df9f68636d792525` — **PASS**
 - Phase 1B definition merge: `844d442da0fa92edd8f95f148a3d6a3311aad4d9` — **PASS**
 - Phase 1B-I1 merge: `a57e81499763bb163929505bd4d47e58479226db` — **PASS**
+- Phase 1B-I2 definition merge: `cb329d6f22e568fb78835682d97985ac96dff502` — **PASS**
 
-## Phase 1B-I2 definition controlled integration
+## Phase 1B-I2-I1 controlled integration
 
-- Authorized base: `4d928d1f6df875250d29f1e8f19faf285d0afb44`
-- Assured candidate: `402baac66ae06f4f0a6aff13d4a85cef8f464e19`
-- PR: `#4 — Phase 1B-I2 — Persistence & Storage Boundary Definition`
-- Exact changed paths: **3**
+- Authorized base: `836eac0f1952b8a1775011d0cc7d1b033015b6d9`
+- Assured candidate: `1ee7b2662e2e32a3e748708243f47b1d2d6ac206`
+- PR: `#5 — Phase 1B-I2-I1 — Provider-Neutral Persistence & Storage Contracts`
+- Exact changed paths: **17**
 - Candidate behind base: **0**
 - Unauthorized deletions: **0**
-- Merge commit: `cb329d6f22e568fb78835682d97985ac96dff502`
+- Merge commit: `92e1f7f3186aacf3f34ff33d94453c8b339bbfcc`
 
 Post-merge validation:
 
-- Governance Gate run `35364710934`: **PASS**
-- Foundation CI run `35364710960`: **PASS**
+- Governance Gate run `35365543209`: **PASS**
+- Foundation CI run `35365543261`: **PASS**
 - Frozen-lockfile install: **PASS**
 - Governance validation/tests: **PASS**
 - Lint: **PASS**
 - TypeScript strict typecheck: **PASS**
-- Existing tests: **PASS**
+- Existing and new persistence/security tests: **PASS**
 - Next.js build: **PASS**
 
-Phase 1B-I2 Definition & Scope Assurance is therefore closed as **COMPLETE / PASS**.
+Phase 1B-I2-I1 is therefore closed as **COMPLETE / PASS**.
 
-## Phase 1B-I2-I1 defined implementation boundary
+## Capabilities established by Phase 1B-I2-I1
 
-The next implementation work package is provider-neutral and limited to the exact 17-path manifest defined in `docs/phases/PHASE-1B-I2-DEFINITION.md`.
+The repository now contains provider-neutral contracts for:
 
-It covers:
-
-- Design Registry and immutable revision contracts;
-- canonical snapshot persistence contracts;
-- asset metadata persistence;
-- append-only provenance persistence;
-- provider-neutral object-storage boundaries;
-- PUBLIC / PRIVATE_DESIGN / RESTRICTED_EVIDENCE separation;
-- signed/expiring delivery contracts;
+- permanent Design Registry identity;
+- append-only DesignRevision history;
+- immutable locked canonical snapshots;
+- asset metadata persistence boundaries;
+- append-only provenance;
+- provider-neutral object storage;
+- PUBLIC / PRIVATE_DESIGN / RESTRICTED_EVIDENCE preservation;
+- signed/expiring delivery requests;
 - append-only audit events;
-- retention and deletion-request contracts;
-- runtime schemas and security/production tests.
+- retention/deletion request state;
+- legal-hold and audit-before-delete gates.
 
-No concrete database, storage backend, migration, authentication system, payment processor, deployment provider, public publishing, physical deletion, or production activation is authorized by this checkpoint.
+No concrete database, object-storage backend, SQL migration, auth provider, signed-URL provider, payment processor, deployment provider, public publishing, physical deletion, or production activation is active.
 
 ## Authority boundary
 
-Completion of the Phase 1B-I2 definition does not grant implementation, release, deployment, production activation, payment activation, public auto-publishing, or destructive authority.
+Completion of Phase 1B-I2-I1 does not grant release, deployment, production activation, payment activation, public auto-publishing, or destructive authority.
 
 ## Next governed work package
 
-`PHASE-1B-I2-I1 — Provider-Neutral Persistence, Storage, Audit, Retention Contracts`
+`PHASE-1B-I3 — Definition & Scope Assurance`
 
-Implementation is **not yet authorized**. The next gate is explicit Phase 1B-I2-I1 implementation authorization.
+The recommended next slice is authentication/authorization and role-policy boundary design for CUSTOMER, ARTIST, SHOP, ADMIN, and SYSTEM/AI SERVICE roles, including least privilege, asset access policy, signed-delivery authorization decisions, and audit-linked permission checks.
+
+Implementation is not authorized by this record.
