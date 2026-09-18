@@ -12,3 +12,8 @@ export * from "./persistence";
 export * from "./storage";
 export * from "./audit";
 export * from "./retention";
+export * from "./principals";
+export * from "./permissions";
+export * from "./authorization";
+export * from "./resource-access";
+export * from "./service-identity";
