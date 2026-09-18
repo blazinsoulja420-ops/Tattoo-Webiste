@@ -4,32 +4,33 @@
   "project_id": "UP-TATTOO-001",
   "authoritative": true,
   "checkpoint": {
-    "id": "TAT-C4-PHASE-1B-I2-DEFINITION-MERGE",
-    "state": "PHASE_1B_I2_DEFINITION_MERGED_AND_VERIFIED",
+    "id": "TAT-C5-PHASE-1B-I2-I1-MERGE",
+    "state": "PHASE_1B_I2_I1_MERGED_AND_VERIFIED",
     "governing_baseline": "26a5e4e3d572e397ab459a1d112f87df9ecc5378",
     "phase_1a_merge": "5c538ef63b3da5320a3b8de8df9f68636d792525",
     "phase_1b_definition_merge": "844d442da0fa92edd8f95f148a3d6a3311aad4d9",
     "phase_1b_i1_merge": "a57e81499763bb163929505bd4d47e58479226db",
-    "phase_1b_i2_definition_candidate": "402baac66ae06f4f0a6aff13d4a85cef8f464e19",
     "phase_1b_i2_definition_merge": "cb329d6f22e568fb78835682d97985ac96dff502",
+    "phase_1b_i2_i1_candidate": "1ee7b2662e2e32a3e748708243f47b1d2d6ac206",
+    "phase_1b_i2_i1_merge": "92e1f7f3186aacf3f34ff33d94453c8b339bbfcc",
     "post_merge_ci": {
       "governance_gate": {
-        "run_id": 35364710934,
+        "run_id": 35365543209,
         "conclusion": "PASS"
       },
       "foundation_ci": {
-        "run_id": 35364710960,
+        "run_id": 35365543261,
         "conclusion": "PASS"
       }
     }
   },
   "primary_context": "PROJECT_FOUNDATION",
-  "primary_mode": "PHASE_1B_I2_IMPLEMENTATION_PREPARATION",
+  "primary_mode": "POST_MERGE_ASSURANCE",
   "secondary_modes": ["ARCHITECTURE","PERSISTENCE","STORAGE","SECURITY","PRIVACY","TESTING"],
   "current_work_package": {
     "id": "PHASE-1B-I2-I1",
     "name": "Provider-Neutral Persistence, Storage, Audit, Retention Contracts",
-    "state": "DEFINED_NOT_YET_AUTHORIZED_FOR_IMPLEMENTATION",
+    "state": "COMPLETE_PASS",
     "control_promotion_authorized": false,
     "release_authority": "NOT_GRANTED",
     "deployment_authority": "NOT_GRANTED",
@@ -41,5 +42,5 @@
     "upos_projection": "NON_AUTHORITATIVE",
     "governance_binding": "POLICY_AND_BINDING_NOT_RUNTIME_AUTHORITY"
   },
-  "next_gate": "PHASE_1B_I2_I1_IMPLEMENTATION_AUTHORIZATION"
+  "next_gate": "PHASE_1B_I3_DEFINITION_AND_SCOPE_ASSURANCE"
 }
