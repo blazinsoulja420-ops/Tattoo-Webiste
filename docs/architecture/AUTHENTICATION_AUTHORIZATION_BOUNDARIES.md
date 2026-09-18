@@ -1,46 +1,23 @@
-# Authentication and Authorization Boundaries — Phase 1B-I3 Design
+# Authentication and Authorization Boundaries — Phase 1B-I3
 
-## Purpose
+## Implementation status
 
-Tattoo Platform v2 needs identity and authorization semantics before a concrete authentication provider is selected.
+Phase 1B-I3-I1 implements the provider-neutral contract layer for canonical principals, roles, permissions, resource relationships, fail-closed authorization decisions, signed-delivery authorization, bounded service identities, and audit correlation.
 
-The domain must decide whether an action is allowed. An authentication provider may prove or assert identity, but it does not own application authorization.
+No concrete authentication provider, token issuer, password store, MFA system, session framework, database, or production identity integration is active.
 
 ## Authentication boundary
 
-Authentication answers:
+Authentication answers who or what is making the request.
 
-> Who or what is making the request?
-
-Future provider claims may contribute:
+The canonical Principal contract contains:
 
 - principal ID;
-- authentication assurance level;
-- provider subject ID;
-- verified email/phone flags;
-- service identity;
-- session metadata.
+- assigned role set;
+- authenticated flag;
+- optional authentication context.
 
-Those claims are inputs only.
-
-## Authorization boundary
-
-Authorization answers:
-
-> May this principal perform this action on this resource in this context?
-
-Every decision is fail-closed and returns an explicit ALLOW or DENY result with:
-
-- principal ID;
-- requested permission/action;
-- resource type and ID;
-- resource security class where applicable;
-- relationship evidence;
-- decision reason;
-- audit correlation ID;
-- timestamp.
-
-Missing required context results in DENY.
+Future provider claims are inputs only. They do not directly grant application access.
 
 ## Role model
 
@@ -52,11 +29,11 @@ Supported roles are:
 - ADMIN
 - SYSTEM_AI_SERVICE
 
-A principal may have one or more assigned roles, but role membership is not sufficient by itself when resource ownership or project relationship is required.
+A principal may have multiple roles, except a ServiceIdentity which is constrained to SYSTEM_AI_SERVICE only.
 
-## Least-privilege policy
+## Permission policy
 
-Permissions are explicit capabilities such as:
+The implemented permission set includes:
 
 - DESIGN_READ
 - DESIGN_EDIT
@@ -69,11 +46,13 @@ Permissions are explicit capabilities such as:
 - ADMIN_AUDIT_READ
 - SYSTEM_JOB_EXECUTE
 
-The implementation phase may refine the exact permission enumeration while staying within this boundary.
+Role permission mappings are explicit and least-privilege oriented.
+
+Permission possession alone is not sufficient where resource relationships are required.
 
 ## Resource relationships
 
-Authorization may depend on relationships such as:
+Implemented relationships are:
 
 - OWNER
 - LICENSEE
@@ -83,73 +62,105 @@ Authorization may depend on relationships such as:
 - ADMINISTRATIVE_SCOPE
 - SYSTEM_JOB_SCOPE
 
-Relationships must be explicit and auditable.
+Access checks combine role permission plus relationship evidence.
+
+Examples:
+
+- CUSTOMER: OWNER or LICENSEE
+- ARTIST: ASSIGNED_ARTIST or EXPLICIT_SHARE
+- SHOP: SHOP_PROJECT_MEMBER
+- ADMIN: ADMINISTRATIVE_SCOPE
+- SYSTEM_AI_SERVICE: SYSTEM_JOB_SCOPE
+
+## Default-deny evaluator
+
+The authorize() evaluator returns ALLOW or DENY.
+
+It denies when:
+
+- audit correlation is absent;
+- principal or resource context is absent;
+- principal is not authenticated/valid;
+- required permission is missing;
+- required resource relationship is missing;
+- RESTRICTED_EVIDENCE is requested without RESTRICTED_EVIDENCE_READ;
+- SYSTEM_AI_SERVICE attempts restricted-evidence access by role alone.
+
+Every result contains an audit correlation ID and a human-readable reason.
 
 ## Asset-class policy
 
 ### PUBLIC
 
-Readability may be broad only after an independent publication approval exists. Public classification itself is not created by the authorization layer.
+A PUBLIC resource relationship succeeds only when publicationApproved is true. The authorization layer does not itself publish assets.
 
 ### PRIVATE_DESIGN
 
-Requires an ownership, license, assigned-project, authorized-share, or bounded administrative relationship appropriate to the requested permission.
+Requires a qualifying ownership, license, project, share, administrative, or bounded system relationship according to the requesting role.
 
 ### RESTRICTED_EVIDENCE
 
-Requires explicit permission plus an authorized relationship. Authentication alone, generic staff status, or SYSTEM_AI_SERVICE identity is insufficient.
+Requires the explicit RESTRICTED_EVIDENCE_READ permission plus an authorized relationship.
+
+Authentication, staff status, ADMIN role alone, or SYSTEM_AI_SERVICE role alone is insufficient.
 
 ## Signed-delivery authorization
 
-The application performs authorization before creating an AuthorizedDeliveryRequest.
+createAuthorizedDeliveryRequest() accepts only an ALLOW decision for SIGNED_DELIVERY_REQUEST.
 
-The storage adapter remains CAPABILITY_ONLY and may only consume an already-authorized request.
+The decision must match:
 
-The authorization decision must match:
-
-- asset ID;
+- principal ID;
+- asset/resource ID;
 - security class;
-- requesting principal;
-- permitted purpose;
 - audit correlation.
+
+Only after those checks may the application create an AuthorizedDeliveryRequest for the CAPABILITY_ONLY storage boundary.
 
 ## Service identity
 
-SYSTEM_AI_SERVICE represents automated application capability.
+ServiceIdentity is constrained to:
 
-It may receive narrow machine permissions such as executing a generation or validation job.
+- role SYSTEM_AI_SERVICE only;
+- authority CAPABILITY_ONLY;
+- explicitly granted machine permissions.
 
-It may not:
+The contract rejects human/admin-oriented service permissions such as ADMIN_AUDIT_READ, ARTIST_REVIEW_WRITE, and RESTRICTED_EVIDENCE_READ.
 
-- impersonate CUSTOMER, ARTIST, SHOP, or ADMIN;
-- assign its own roles;
-- grant itself permissions;
-- authorize tattoo execution;
-- override failed validation;
-- publish restricted/private assets;
-- access RESTRICTED_EVIDENCE without explicit bounded authorization;
-- bypass audit.
+The service identity cannot grant roles to itself or others.
 
 ## Admin boundary
 
-ADMIN is not a universal privacy bypass.
+ADMIN is not a universal access bypass.
 
-Administrative access remains:
+Administrative resource access requires ADMINISTRATIVE_SCOPE and remains subject to:
 
-- purpose-bound;
-- auditable;
-- least-privilege;
-- constrained by restricted-evidence policy;
-- separate from tattoo execution approval.
+- explicit permission;
+- restricted-evidence controls;
+- audit correlation;
+- privacy rules;
+- separate tattoo-execution authority.
 
 ## Audit linkage
 
-Every authorization decision includes an audit correlation ID so the application can append an AuditEvent.
+Every authorization decision includes auditCorrelationId.
 
-DENY decisions are first-class auditable outcomes.
+ALLOW and DENY outcomes can therefore be converted into append-only AuditEvent records by a later application layer.
 
 ## Provider neutrality
 
-This design does not select Auth0, Clerk, Supabase Auth, Firebase Auth, Cognito, or another identity provider.
+No Auth0, Clerk, Supabase Auth, Firebase Auth, Cognito, OAuth/OIDC provider, token issuer, password system, or session implementation exists in this phase.
 
-Provider adapters must map authenticated identity into the canonical principal contract and may not bypass the authorization evaluator.
+A future identity adapter must map its authenticated identity into the canonical Principal contract and must pass the same default-deny and relationship-aware tests.
+
+## Phase 1B-I3-I1 completion evidence
+
+Completion requires:
+
+- governance validation;
+- frozen-lockfile installation;
+- lint;
+- TypeScript strict typecheck;
+- all existing tests;
+- new authorization/resource/restricted-evidence/service-identity tests;
+- Next.js build.

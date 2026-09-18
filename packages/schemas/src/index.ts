@@ -8,3 +8,7 @@ export * from "./registry.schema";
 export * from "./storage.schema";
 export * from "./audit.schema";
 export * from "./retention.schema";
+export * from "./principals.schema";
+export * from "./authorization.schema";
+export * from "./resource-access.schema";
+export * from "./service-identity.schema";
