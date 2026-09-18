@@ -14,6 +14,15 @@
 - UPOS: 1.1.1
 - Inheritance: `STRICT_AUTOMATIC_NON_WEAKENING`
 
+## C0 governance baseline
+
+- Baseline commit: `26a5e4e3d572e397ab459a1d112f87df9ecc5378`
+- Governance Gate run: `#2`
+- Workflow run ID: `35358656643`
+- Result: **PASS**
+
+The C0 baseline establishes project identity, canonical ecosystem inheritance, project-native fail-closed governance rules, authoritative UPRS state ownership, non-authoritative UPOS projection, the FTA/ACR/TRS production contract, tattoo-specific strengthening controls, and supplemental GitHub Actions governance validation.
+
 ## Authority
 
 Governance binding does not grant release, deployment, payment activation, public auto-publishing, production activation, or destructive authority.
@@ -44,22 +53,12 @@ Expected validator output:
 GOVERNANCE_VERDICT=PASS
 ```
 
-## Bootstrap assurance
-
-A fresh read-back validation against the live `main` branch passed the following invariants:
-
-- project identity consistent across all authoritative governance artifacts;
-- UPE 1.0.1, UPGS 3.1.1, UPRS 2.2.1, and UPOS 1.1.1 versions locked;
-- canonical package hashes match the adopted ecosystem values;
-- strict automatic non-weakening inheritance enabled;
-- PROJECT_STATE remains authoritative;
-- UPOS projection remains non-authoritative and cannot grant authority;
-- production activation and destructive operations remain prohibited;
-- FTA / ACR / TRS contract remains mandatory and fail-closed on material geometry drift;
-- artist approval remains required for tattoo execution.
-
-Read-back governance verdict: **PASS**
-
-GitHub Actions CI verdict: **PENDING** until a workflow run is observed and completes successfully.
+A fresh read-back validation against live `main` also passed the project identity, canonical version/hash, non-weakening, state ownership, authority-boundary, and FTA/ACR/TRS invariants.
 
 A PASS validates the repository binding and local strengthening rules only. It does not prove the product is implemented, tattoo outcomes are safe or effective, or the system is ready for production.
+
+## Next governed work package
+
+`PHASE-1A — Canonical Repository Bootstrap`
+
+Phase 1A is authorized for bounded foundation implementation. Release, deployment, production activation, payment activation, public auto-publishing, and destructive operations remain separately gated.
