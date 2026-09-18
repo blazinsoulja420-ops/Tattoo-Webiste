@@ -4,3 +4,7 @@ export * from "./jobs.schema";
 export * from "./assets.schema";
 export * from "./provenance.schema";
 export * from "./validation.schema";
+export * from "./registry.schema";
+export * from "./storage.schema";
+export * from "./audit.schema";
+export * from "./retention.schema";
