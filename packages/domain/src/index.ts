@@ -7,3 +7,8 @@ export * from "./assets";
 export * from "./provenance";
 export * from "./validation";
 export * from "./providers";
+export * from "./registry";
+export * from "./persistence";
+export * from "./storage";
+export * from "./audit";
+export * from "./retention";

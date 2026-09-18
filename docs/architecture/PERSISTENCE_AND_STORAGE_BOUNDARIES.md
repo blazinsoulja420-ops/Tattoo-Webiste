@@ -1,47 +1,46 @@
 # Persistence and Storage Boundaries — Phase 1B-I2 Design
 
-## Purpose
+## Implementation status
 
-Tattoo Platform v2 needs durable records before connecting a concrete database or object-storage provider.
+Phase 1B-I2-I1 implements the provider-neutral contract layer for durable registry identity, immutable revisions, canonical snapshots, storage boundaries, signed delivery, audit events, and retention/deletion requests.
 
-This architecture keeps domain authority independent from storage capability.
+No concrete database or object-storage provider is active.
 
 ## Design Registry boundary
 
 The Design Registry is the durable source of identity and lineage.
 
-Conceptual records include:
+Implemented conceptual records include:
 
-- Design;
-- DesignRevision;
+- DesignRegistryRecord;
+- DesignRevisionRecord;
 - CanonicalDesignSnapshot;
 - AssetRecord;
 - ProvenanceRecord;
 - AuditEvent;
-- RetentionRequest;
-- DeletionRequest.
+- RetentionRequest.
 
-A Design ID remains permanent for the life of the record.
+A Design ID remains permanent.
 
-A DesignRevision is append-only. A later revision may reference a parent revision, but existing revision content is never replaced in place.
+DesignRevision records are append-only. Duplicate Revision IDs are rejected, later revisions require a valid same-design parent, and existing revisions are not replaced in place.
 
 ## Canonical snapshot boundary
 
-A canonical locked design is persisted as a revision-scoped snapshot containing at minimum:
+A locked canonical snapshot contains:
 
 - Design ID;
 - Revision ID;
-- lock state;
+- lock state = true;
 - specification digest;
 - geometry fingerprint;
 - composition fingerprint;
 - creation timestamp.
 
-Once locked, the persisted snapshot is immutable. A changed design requires a new revision.
+A second snapshot for the same Design ID + Revision ID is rejected. A changed canonical design requires a new revision.
 
-## Persistence interfaces
+## Provider-neutral persistence interfaces
 
-Domain contracts should depend on small provider-neutral repository interfaces such as:
+The domain now exposes repository contracts for:
 
 - DesignRegistryRepository
 - DesignRevisionRepository
@@ -51,32 +50,34 @@ Domain contracts should depend on small provider-neutral repository interfaces s
 - AuditEventRepository
 - RetentionRequestRepository
 
-Interfaces express domain operations, not SQL or vendor-specific APIs.
+These interfaces describe domain operations only. They contain no SQL, migration, network, or vendor-specific implementation.
+
+Provenance persistence is append-only: duplicate provenance-record identities are rejected.
 
 ## Binary storage boundary
 
-Binary objects are stored behind a separate ObjectStorageAdapter.
+Object bytes remain behind ObjectStorageAdapter.
 
-Metadata and binary identity are intentionally separated.
+Metadata and binary identity are intentionally separate.
 
-The adapter may:
+The adapter is explicitly:
 
-- store bytes under an already-authorized security class;
-- read an already-authorized object;
-- generate an expiring delivery artifact only when given an authorized delivery request;
-- report integrity metadata.
+`CAPABILITY_ONLY`
 
-The adapter may not:
+It may store bytes and translate an already-authorized delivery request into an opaque delivery artifact in a later provider implementation.
 
-- decide who is authorized;
+It may not:
+
+- decide authorization;
 - change PUBLIC / PRIVATE_DESIGN / RESTRICTED_EVIDENCE classification;
 - publish restricted evidence;
-- silently overwrite immutable originals;
+- weaken PRIVATE_DESIGN production assets to PUBLIC;
+- silently replace immutable originals;
 - erase provenance or audit history.
 
-## Security namespaces
+The contract rejects storage-class changes at the adapter boundary.
 
-Logical storage namespaces remain:
+## Security namespaces
 
 ### PUBLIC
 
@@ -90,43 +91,32 @@ FTA masters, ACR files, TRS files, scale sheets, production packs, and purchased
 
 Original body imagery, cover-up evidence, assessment images, and sensitive derivatives.
 
-RESTRICTED_EVIDENCE has the strongest access, retention, audit, and deletion controls.
+RESTRICTED_EVIDENCE may not be reclassified PUBLIC by a storage adapter.
 
 ## Signed delivery contract
 
-A signed delivery request is an application-authorized capability request, not an authorization decision.
+AuthorizedDeliveryRequest requires:
 
-It requires:
-
-- asset ID;
-- security class;
+- Asset ID;
+- assigned security class;
 - requesting principal ID;
-- approved purpose;
-- expiry timestamp or maximum TTL;
+- explicit purpose;
+- future expiry timestamp;
 - audit correlation ID.
 
-A storage adapter may translate that authorized request into a provider-specific signed URL/token in a later phase.
+The current contract supports purposes:
 
-## Retention and deletion
+- CUSTOMER_DOWNLOAD
+- ARTIST_PRODUCTION
+- INTERNAL_REVIEW
 
-Deletion is a governed workflow, not an unlogged storage operation.
+A storage adapter consumes an authorization decision; it does not create one.
 
-A deletion request records:
-
-- request ID;
-- requester;
-- target asset/record;
-- reason;
-- requested timestamp;
-- legal/retention holds;
-- approval state;
-- eventual disposition.
-
-The current phase defines only the contract. No physical deletion implementation is authorized.
+Expired requests, missing principals, and missing audit correlation are rejected.
 
 ## Audit boundary
 
-Audit events are append-only and capture at minimum:
+Audit events are append-only and include:
 
 - event ID;
 - actor/principal;
@@ -135,12 +125,45 @@ Audit events are append-only and capture at minimum:
 - outcome;
 - correlation ID;
 - timestamp;
-- relevant security class where applicable.
+- optional security class and details.
 
-Failed access and blocked reclassification attempts should also be auditable.
+Duplicate audit-event identities are rejected.
+
+Blocked or failed access/reclassification attempts can be represented as audit events in later application layers.
+
+## Retention and deletion
+
+Deletion remains a governed workflow rather than a storage command.
+
+RetentionRequest records:
+
+- request ID;
+- request kind;
+- requester;
+- target;
+- reason;
+- requested timestamp;
+- workflow state;
+- legal-hold status;
+- audit correlation ID.
+
+The domain requires:
+
+- DELETION_REQUEST kind;
+- no active legal hold;
+- APPROVED state;
+- a prior correlated deletion-request audit event;
+
+before a future physical deletion operation could even be eligible.
+
+No physical deletion implementation exists in Phase 1B-I2-I1.
 
 ## Provider neutrality
 
-This design does not select Supabase, PostgreSQL, S3, R2, Vercel Blob, or any other backend.
+This contract layer does not select or activate Supabase, PostgreSQL, S3, R2, Vercel Blob, or another backend.
 
-Concrete providers must implement these contracts and pass the same security and lineage tests before adoption.
+Concrete providers must implement these contracts and pass the same lineage, security-classification, signed-delivery, retention, and audit tests before adoption.
+
+## Phase 1B-I2-I1 evidence target
+
+Completion requires governance validation, frozen-lockfile install, lint, TypeScript strict typecheck, all prior production tests, the new persistence/security tests, and the Next.js build to pass.
