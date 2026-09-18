@@ -17,53 +17,69 @@
 ## C0 governance baseline
 
 - Baseline commit: `26a5e4e3d572e397ab459a1d112f87df9ecc5378`
-- Governance Gate run: `#2`
-- Workflow run ID: `35358656643`
 - Result: **PASS**
 
-## Phase 1A controlled integration
+## Phase 1A
 
-- Assured candidate: `eeb0eeb178ee669b1480a92586e91f3742a84cc3`
 - Merge commit: `5c538ef63b3da5320a3b8de8df9f68636d792525`
 - Result: **COMPLETE / PASS**
 
-## Phase 1B definition integration
+## Phase 1B definition
 
-- Authorized base: `942843b61607d204f065a0e48d11243e0d6dc3f4`
-- Assured definition candidate: `36ee4fcf5e72e9bae2872896f65953aa27a1c5c8`
-- PR: `#2 — Phase 1B — Definition & Scope Assurance`
 - Merge commit: `844d442da0fa92edd8f95f148a3d6a3311aad4d9`
-- Candidate changed paths: **3**
+- Result: **COMPLETE / PASS**
+
+## Phase 1B-I1 controlled integration
+
+- Authorized base: `84bdd822ba73305d6546eaa2aec450cec0f4b086`
+- Independently assured candidate: `1dd1f463635a0cc7ab1a584071602177d3b65eba`
+- PR: `#3 — Phase 1B-I1 — Provider-Neutral Contracts`
+- Exact changed paths: **16**
 - Candidate behind base: **0**
-- Candidate deleted paths: **0**
+- Unauthorized deletions: **0**
+- Merge commit: `a57e81499763bb163929505bd4d47e58479226db`
 
 Post-merge validation:
 
-- Governance Gate run `35360805622`: **PASS**
-- Foundation CI run `35360805649`: **PASS**
+- Governance Gate run `35361744717`: **PASS**
+- Foundation CI run `35361744746`: **PASS**
 - Frozen-lockfile install: **PASS**
-- Governance validation: **PASS**
+- Governance validation/tests: **PASS**
 - Lint: **PASS**
-- Typecheck: **PASS**
-- Tests: **PASS**
-- Build: **PASS**
+- TypeScript strict typecheck: **PASS**
+- Existing and Phase 1B-I1 tests: **PASS**
+- Next.js build: **PASS**
 
-Phase 1B Definition & Scope Assurance is therefore closed as **COMPLETE / PASS**.
+Phase 1B-I1 is therefore closed as **COMPLETE / PASS**.
 
-## Phase 1B-I1 defined implementation boundary
+## Phase 1B-I1 capabilities now established
 
-The next implementation work package is provider-neutral and limited to the exact 16-path manifest defined in `docs/phases/PHASE-1B-DEFINITION.md`.
+The repository now has provider-neutral contracts for:
 
-It covers job, asset, provenance, validation, and provider-adapter contracts plus runtime schemas and tests.
+- asynchronous job identity and lifecycle;
+- canonical-design render eligibility;
+- production/private/restricted asset classification;
+- append-only derivative provenance lineage;
+- independent production validation;
+- ARTIST_REVIEW gating;
+- provider adapters constrained to `CAPABILITY_ONLY`;
+- runtime validation schemas;
+- tests for canonical locking, geometry drift, cover-up evidence immutability, lineage, and validation failure.
 
-No live AI provider, database, object storage, payment processor, deployment provider, public publishing, or production activation is authorized by this checkpoint.
+No concrete AI provider, database, object storage, authentication provider, payment processor, deployment provider, or public publishing integration is active.
 
 ## Project-specific strengthening
 
-The repository requires synchronized FTA / ACR / TRS outputs from one canonical design, genuinely hand-drawn-looking ACR output, immutable cover-up evidence, human tattoo-artist execution authority, strict asset-class separation, and fail-closed privacy/security handling.
+The repository continues to require synchronized FTA / ACR / TRS outputs from one canonical design, genuinely hand-drawn-looking ACR output, immutable cover-up evidence, human tattoo-artist execution authority, strict asset-class separation, and fail-closed privacy/security handling.
+
+## Authority boundary
+
+Completion of Phase 1B-I1 does not grant release, deployment, production activation, payment activation, public auto-publishing, or destructive authority.
 
 ## Next governed work package
 
-`PHASE-1B-I1 — Provider-Neutral Job, Asset, Provenance, Validation Contracts`
+`PHASE-1B-I2 — Definition & Scope Assurance`
 
-Implementation has **not yet been authorized**. The next gate is explicit Phase 1B-I1 implementation authorization.
+The recommended next slice is persistence/storage boundary design: durable Design Registry, append-only revisions/provenance, private/restricted asset storage contracts, signed-delivery boundaries, and audit-event persistence without yet binding to a concrete backend provider.
+
+Implementation is not authorized by this record.
