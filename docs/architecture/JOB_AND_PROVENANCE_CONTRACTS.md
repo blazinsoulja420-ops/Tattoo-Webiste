@@ -1,18 +1,24 @@
 # Job and Provenance Contracts — Phase 1B Design
 
+## Implementation status
+
+Phase 1B-I1 implements the provider-neutral contract layer defined here. No live provider, storage, database, payment, deployment, or publishing integration is active.
+
 ## Job model
 
 Long-running AI and image work is asynchronous.
 
 The web application creates a provider-neutral job request and does not directly execute heavy generation work inside the request lifecycle.
 
-Required conceptual job states:
+Required job states:
 
 `QUEUED → CLAIMED → RUNNING → SUCCEEDED | FAILED | CANCELLED`
 
-A job may not advance directly from QUEUED to SUCCEEDED.
+Direct `QUEUED → SUCCEEDED` progression is prohibited.
 
 ## Job categories
+
+Implemented contract categories:
 
 - CONCEPT_GENERATION
 - CONTROLLED_EDIT
@@ -20,94 +26,78 @@ A job may not advance directly from QUEUED to SUCCEEDED.
 - ACR_RENDER
 - TRS_RENDER
 - PRODUCTION_VALIDATION
-- COVERUP_ANALYSIS (reserved; not implemented in Phase 1B-I1)
-- SIMILARITY_CHECK (reserved; not implemented in Phase 1B-I1)
 
-## Canonical-design requirement
+Reserved for later phases:
+
+- COVERUP_ANALYSIS
+- SIMILARITY_CHECK
+
+## Canonical-design gate
 
 FTA_RENDER, ACR_RENDER, and TRS_RENDER require:
 
-- Design ID
-- Revision ID
-- canonical lock = true
-- canonical geometry fingerprint
-- canonical composition fingerprint
+- matching Design ID;
+- matching Revision ID;
+- canonical lock = true;
+- matching canonical geometry fingerprint;
+- matching canonical composition fingerprint.
 
-Jobs must reject stale or mismatched revision identifiers.
+Render eligibility fails closed on stale or mismatched canonical identity.
 
 ## Asset contract
 
-Every generated artifact records:
+Every generated artifact records identity, revision, security class, content hash, media metadata, provenance identity, and geometry/physical metadata where applicable.
 
-- asset ID;
-- Design ID;
-- Revision ID;
-- output kind;
-- security class;
-- content hash;
-- canonical geometry fingerprint where applicable;
-- MIME type;
-- byte length;
-- pixel dimensions when raster;
-- physical dimensions when transfer-oriented;
-- created timestamp;
-- provenance record ID.
-
-Allowed security classes remain:
+Allowed security classes:
 
 - PUBLIC
 - PRIVATE_DESIGN
 - RESTRICTED_EVIDENCE
 
-FTA, ACR, and TRS default to PRIVATE_DESIGN.
+FTA, ACR, and TRS must remain PRIVATE_DESIGN.
+
+A COVERUP_ORIGINAL must remain RESTRICTED_EVIDENCE and immutable.
 
 ## Provenance contract
 
-Each derivative records:
+Derivative records preserve:
 
 - provider adapter identity;
-- provider model identifier if available;
+- model identity when available;
 - operation type;
 - source asset IDs;
-- parent revision;
-- prompt/specification digest;
-- parameter digest;
+- parent revision when applicable;
+- prompt/specification digest when applicable;
+- parameter digest when applicable;
 - output asset ID;
+- supersession lineage;
 - creation timestamp.
 
-Provenance is append-only at the domain level. A newer record may supersede an older record but does not overwrite it.
+Derivative operations require source-asset or parent-revision lineage. A record may supersede another record but cannot overwrite history or supersede itself.
 
 ## Validation contract
 
 Generation and validation are separate responsibilities.
 
-A validation result contains:
+Production validation checks:
 
-- validator identity;
-- target Design ID / Revision ID;
-- target output IDs;
-- findings;
-- severity;
-- pass/fail disposition;
-- evidence references;
-- timestamp.
-
-At minimum, production validation checks:
-
+- FTA / ACR / TRS presence;
 - Design ID alignment;
 - Revision ID alignment;
-- geometry fingerprint alignment;
-- presence of FTA / ACR / TRS;
-- ACR hand-drawn presentation requirement;
-- TRS physical dimensions;
-- private-asset classification;
-- cover-up evidence restrictions when applicable.
+- canonical geometry alignment;
+- ACR hand-drawn requirement;
+- TRS positive physical dimensions;
+- private production-asset classification.
 
-A failed production validation blocks progression to ARTIST_REVIEW.
+Any ERROR finding makes the validation result fail.
+
+Only a passing independent production-validation result permits progression to ARTIST_REVIEW.
 
 ## Provider boundary
 
-Provider adapters expose capabilities only.
+Provider adapters expose capabilities only and carry the explicit authority marker:
+
+`CAPABILITY_ONLY`
 
 They do not:
 
@@ -118,4 +108,8 @@ They do not:
 - issue licenses;
 - override validation failures.
 
-These actions remain controlled by application/domain authority.
+Application/domain authority remains separate from provider capability.
+
+## Phase 1B-I1 evidence target
+
+The contract layer is complete only when governance validation, frozen-lockfile installation, lint, TypeScript strict typecheck, existing Phase 1A tests, new job/provenance/validation tests, and the Next.js build all pass.
