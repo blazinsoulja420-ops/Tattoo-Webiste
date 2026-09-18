@@ -9,7 +9,7 @@ export class SupabaseRetentionRequestRepository implements RetentionRequestRepos
 
   async get(requestId: string): Promise<RetentionRequest | null> {
     return (await this.data.getOne("retention_requests", {
-      request_id: requestId,
+      requestId,
     })) as unknown as RetentionRequest | null;
   }
 
