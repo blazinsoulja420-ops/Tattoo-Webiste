@@ -64,6 +64,16 @@ importers:
         specifier: 5.9.2
         version: 5.9.2
 
+  packages/infrastructure:
+    dependencies:
+      '@tattoo/domain':
+        specifier: workspace:*
+        version: link:../domain
+    devDependencies:
+      typescript:
+        specifier: 5.9.2
+        version: 5.9.2
+
   packages/schemas:
     dependencies:
       zod:
